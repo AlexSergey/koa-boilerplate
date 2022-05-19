@@ -1,0 +1,42 @@
+import { getStatus } from '../../utils/get-status';
+import { INCORRECT_ACCESS } from '../../constants/messages';
+import { BaseError } from '../../common/base.error';
+import type { ErrorInterface } from '../../common/error.interface';
+
+/**
+ * @openapi
+ * components:
+ *   errors:
+ *     incorrect-access:
+ *       description: Incorrect access.
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               code:
+ *                 type: string
+ *                 default: 'BAD_REQUEST'
+ *                 description: BAD_REQUEST error code
+ *               statusCode:
+ *                 type: integer
+ *                 default: 406
+ *                 description: 406 statusCode
+ *               message:
+ *                 type: string
+ *                 default: "Incorrect access."
+ *                 description: Error message
+ *               status:
+ *                 type: string
+ *                 default: "fail"
+ *                 description: Common error status
+ */
+export class IncorrectAccessError extends BaseError implements ErrorInterface {
+  public override code = INCORRECT_ACCESS.code;
+
+  public override statusCode = INCORRECT_ACCESS.statusCode;
+
+  public override message = INCORRECT_ACCESS.message;
+
+  public override status = getStatus(INCORRECT_ACCESS.statusCode);
+}

@@ -1,0 +1,73 @@
+{
+  "ts-node": {
+    "files": true,
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  },
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "target": "es6",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "noEmitOnError": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "preserveConstEnums": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "baseUrl": "src/",
+    "paths": {
+      "app": [
+        "app"
+      ],
+      "common": [
+        "common"
+      ],
+      "boundaries": [
+        "boundaries"
+      ],
+      "config": [
+        "config"
+      ],
+      "database": [
+        "database"
+      ],
+      "errors": [
+        "errors"
+      ],
+      "features": [
+        "features"
+      ],
+      "libs": [
+        "libs"
+      ],
+      "logger": [
+        "logger"
+      ],
+      "middlewares": [
+        "middlewares"
+      ]
+    }
+  },
+  "include": [
+    "./src/**/**/*",
+    "jest.e2e.config.ts",
+    "jest.config.ts",
+    "swagger.generate.ts",
+    "./types/**/**/*",
+    "./test/**/**/*",
+    "./prisma/**/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

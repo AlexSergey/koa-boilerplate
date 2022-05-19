@@ -1,0 +1,260 @@
+{
+  "basePath": "/api/v1",
+  "openapi": "3.0.0",
+  "host": "mysite",
+  "schemes": [
+    "https"
+  ],
+  "info": {
+    "title": "backend",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/users/login": {
+      "post": {
+        "summary": "Login existed user",
+        "tags": [
+          "users"
+        ],
+        "requestBody": {
+          "description": "Required fields for user's login",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "user email (validation field)"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "user password (validation field)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "User login",
+        "responses": {
+          "200": {
+            "description": "Return user JWT.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "default": 200,
+                      "description": "Ok code"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "default": 200,
+                      "description": "Ok status"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "default": 200,
+                      "description": "Ok statusCode"
+                    },
+                    "message": {
+                      "type": "string",
+                      "default": "ok",
+                      "description": "Ok message"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "jwt": {
+                          "type": "string",
+                          "description": "User JSON web token"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/errors/unauthorized",
+            "message": {
+              "type": "string",
+              "default": "ok",
+              "description": "Ok message"
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "errors": {
+      "incorrect-access": {
+        "description": "Incorrect access.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "default": "BAD_REQUEST",
+                  "description": "BAD_REQUEST error code"
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "default": 406,
+                  "description": "406 statusCode"
+                },
+                "message": {
+                  "type": "string",
+                  "default": "Incorrect access.",
+                  "description": "Error message"
+                },
+                "status": {
+                  "type": "string",
+                  "default": "fail",
+                  "description": "Common error status"
+                }
+              }
+            }
+          }
+        }
+      },
+      "expired-token": {
+        "description": "Session expired, please re-login.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "default": "TOKEN_EXPIRED",
+                  "description": "TOKEN_EXPIRED error code"
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "default": 401,
+                  "description": "401 statusCode"
+                },
+                "message": {
+                  "type": "string",
+                  "default": "Session expired, please re-login.",
+                  "description": "Error message"
+                },
+                "status": {
+                  "type": "string",
+                  "default": "fail",
+                  "description": "Common error status"
+                }
+              }
+            }
+          }
+        }
+      },
+      "unauthorized": {
+        "description": "You are not authorized in the system.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "default": "UNAUTHORIZED",
+                  "description": "UNAUTHORIZED error code"
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "default": 401,
+                  "description": "401 statusCode"
+                },
+                "message": {
+                  "type": "string",
+                  "default": "You are not authorized in the system.",
+                  "description": "Error message"
+                },
+                "status": {
+                  "type": "string",
+                  "default": "fail",
+                  "description": "Common error status"
+                }
+              }
+            }
+          }
+        }
+      },
+      "wrong-password": {
+        "description": "Wrong password.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "default": "PASSWORD_IS_NOT_VALID",
+                  "description": "PASSWORD_IS_NOT_VALID error code"
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "default": 401,
+                  "description": "401 statusCode"
+                },
+                "message": {
+                  "type": "string",
+                  "default": "Wrong password.",
+                  "description": "Error message"
+                },
+                "status": {
+                  "type": "string",
+                  "default": "fail",
+                  "description": "Common error status"
+                }
+              }
+            }
+          }
+        }
+      },
+      "comment-not-found": {
+        "description": "Comment not found.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "default": "BAD_REQUEST",
+                  "description": "BAD_REQUEST error code"
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "default": 400,
+                  "description": "400 statusCode"
+                },
+                "message": {
+                  "type": "string",
+                  "default": "Comment not found.",
+                  "description": "Error message"
+                },
+                "status": {
+                  "type": "string",
+                  "default": "fail",
+                  "description": "Common error status"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}

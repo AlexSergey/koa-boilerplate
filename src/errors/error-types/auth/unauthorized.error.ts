@@ -1,0 +1,42 @@
+import { getStatus } from '../../utils/get-status';
+import { UNAUTHORIZED } from '../../constants/messages';
+import { BaseError } from '../../common/base.error';
+import type { ErrorInterface } from '../../common/error.interface';
+
+/**
+ * @openapi
+ * components:
+ *   errors:
+ *     unauthorized:
+ *       description: You are not authorized in the system.
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               code:
+ *                 type: string
+ *                 default: 'UNAUTHORIZED'
+ *                 description: UNAUTHORIZED error code
+ *               statusCode:
+ *                 type: integer
+ *                 default: 401
+ *                 description: 401 statusCode
+ *               message:
+ *                 type: string
+ *                 default: "You are not authorized in the system."
+ *                 description: Error message
+ *               status:
+ *                 type: string
+ *                 default: "fail"
+ *                 description: Common error status
+ */
+export class UnauthorizedError extends BaseError implements ErrorInterface {
+  public override code = UNAUTHORIZED.code;
+
+  public override statusCode = UNAUTHORIZED.statusCode;
+
+  public override message = UNAUTHORIZED.message;
+
+  public override status = getStatus(UNAUTHORIZED.statusCode);
+}
