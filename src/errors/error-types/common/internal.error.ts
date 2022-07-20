@@ -1,9 +1,14 @@
-import { getStatus } from '../../utils/get-status';
-import { INTERNAL_ERROR } from '../../constants/messages';
 import { BaseError } from '../../common/base.error';
-import type { ErrorInterface } from '../../common/error.interface';
+import type { IError } from '../../common/error.interface';
+import { INTERNAL_ERROR } from '../../constants/messages';
+import { getStatus } from '../../utils/get-status';
 
-export class InternalError extends BaseError implements ErrorInterface {
+export class InternalError extends BaseError implements IError {
+  constructor() {
+    super();
+    this.name = 'InternalError';
+  }
+
   public override code = INTERNAL_ERROR.code;
 
   public override statusCode = INTERNAL_ERROR.statusCode;

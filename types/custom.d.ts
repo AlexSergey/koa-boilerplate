@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { DefaultContext } from 'koa';
 
-import { LoggerServiceInterface } from '../src/logger/logger.service.interface';
-import { UsersServiceInterface } from '../src/features/users/services/users.service.interface';
-import { AuthServiceInterface } from '../src/features/users/services/auth.service.interface';
+import { IAuthService } from '../src/features/users/services/auth.service.interface';
+import { IUsersService } from '../src/features/users/services/users.service.interface';
+import { ILoggerService } from '../src/logger/logger.service.interface';
 
 declare module 'koa' {
   interface DefaultContext {
-    logger: LoggerServiceInterface;
+    logger: ILoggerService;
     services: {
-      usersService: UsersServiceInterface;
-      authService: AuthServiceInterface;
+      usersService: IUsersService;
+      authService: IAuthService;
     };
   }
 }

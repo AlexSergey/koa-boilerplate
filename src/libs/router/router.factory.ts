@@ -1,8 +1,8 @@
 import { DefaultContext, DefaultState, Middleware } from 'koa';
 
+import { ROUTE_METADATA_KEY } from './constants';
 import { METHODS } from './methods';
 import { RouteType } from './types';
-import { ROUTE_METADATA_KEY } from './constants';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DecoratorType = (target: any, propertyKey: string, descriptor: PropertyDescriptor) => void;
@@ -18,9 +18,9 @@ const factory =
       const route: RouteType<StateT, ContextT>[] = Reflect.getOwnMetadata(ROUTE_METADATA_KEY, target) || [];
       const callback = descriptor.value;
       const options: RouteType<StateT, ContextT> = {
-        url: routeUrl,
-        method,
         callback,
+        method,
+        url: routeUrl,
       };
       if (middlewares.length > 0) {
         options.middlewares = middlewares;

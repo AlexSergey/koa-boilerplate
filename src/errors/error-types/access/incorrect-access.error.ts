@@ -1,7 +1,7 @@
-import { getStatus } from '../../utils/get-status';
-import { INCORRECT_ACCESS } from '../../constants/messages';
 import { BaseError } from '../../common/base.error';
-import type { ErrorInterface } from '../../common/error.interface';
+import type { IError } from '../../common/error.interface';
+import { INCORRECT_ACCESS } from '../../constants/messages';
+import { getStatus } from '../../utils/get-status';
 
 /**
  * @openapi
@@ -31,7 +31,12 @@ import type { ErrorInterface } from '../../common/error.interface';
  *                 default: "fail"
  *                 description: Common error status
  */
-export class IncorrectAccessError extends BaseError implements ErrorInterface {
+export class IncorrectAccessError extends BaseError implements IError {
+  constructor() {
+    super();
+    this.name = 'IncorrectAccessError';
+  }
+
   public override code = INCORRECT_ACCESS.code;
 
   public override statusCode = INCORRECT_ACCESS.statusCode;

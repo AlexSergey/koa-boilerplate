@@ -1,9 +1,9 @@
-import { getStatus } from '../../utils/get-status';
-import { BAD_REQUEST } from '../../constants/messages';
 import { BaseError } from '../../common/base.error';
-import type { ErrorInterface } from '../../common/error.interface';
+import type { IError } from '../../common/error.interface';
+import { BAD_REQUEST } from '../../constants/messages';
+import { getStatus } from '../../utils/get-status';
 
-export class ProxyError extends BaseError implements ErrorInterface {
+export class ProxyError extends BaseError implements IError {
   public override code = BAD_REQUEST.code;
 
   public override statusCode = BAD_REQUEST.statusCode;
@@ -21,5 +21,6 @@ export class ProxyError extends BaseError implements ErrorInterface {
       this.status = e.status;
       this.message = e.message;
     }
+    this.name = 'ProxyError';
   }
 }

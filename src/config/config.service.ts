@@ -1,12 +1,12 @@
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 
 import { config, DotenvConfigOutput, DotenvParseOutput } from 'dotenv';
 import { inject, injectable } from 'inversify';
 
-import { LoggerServiceInterface } from 'logger/logger.service.interface';
 import { APP_DI_TYPES } from 'app/app.di-types';
+import { ILoggerService } from 'logger/logger.service.interface';
 
-import { ConfigServiceInterface, EnvType } from './config.service.interface';
+import { IConfigService, EnvType } from './config.service.interface';
 
 const pathToEnvFiles = {
   development: resolve(__dirname, '../../', '.env.development'),
@@ -15,12 +15,12 @@ const pathToEnvFiles = {
 };
 
 @injectable()
-export class ConfigService implements ConfigServiceInterface {
+export class ConfigService implements IConfigService {
   private config: DotenvParseOutput;
 
   private jwtExpiresIn = '7d';
 
-  constructor(@inject(APP_DI_TYPES.LoggerService) private loggerService: LoggerServiceInterface) {
+  constructor(@inject(APP_DI_TYPES.LoggerService) private loggerService: ILoggerService) {
     const env = this.getEnv();
     const path = pathToEnvFiles[env];
     const result: DotenvConfigOutput = config({
@@ -46,6 +46,7 @@ export class ConfigService implements ConfigServiceInterface {
         ? process.env.NODE_ENV
         : 'development'
     ) as EnvType;
+
     return env;
   }
 

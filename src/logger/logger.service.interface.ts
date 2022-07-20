@@ -1,6 +1,6 @@
 import { Logger } from 'pino';
 
-export interface LoggerServiceInterface {
+export interface ILoggerService {
   logger: Logger;
 
   log(...args: unknown[]): void;

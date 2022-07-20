@@ -1,9 +1,14 @@
 import { BaseError } from '../../common/base.error';
-import { getStatus } from '../../utils/get-status';
+import type { IError } from '../../common/error.interface';
 import { FILE_FORMAT_ERROR } from '../../constants/messages';
-import type { ErrorInterface } from '../../common/error.interface';
+import { getStatus } from '../../utils/get-status';
 
-export class BadFileFormatError extends BaseError implements ErrorInterface {
+export class BadFileFormatError extends BaseError implements IError {
+  constructor() {
+    super();
+    this.name = 'BadFileFormatError';
+  }
+
   public override code = FILE_FORMAT_ERROR.code;
 
   public override statusCode = FILE_FORMAT_ERROR.statusCode;

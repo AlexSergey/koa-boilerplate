@@ -1,17 +1,17 @@
-import { sign, verify } from 'jsonwebtoken';
 import { compare } from 'bcrypt';
 import { inject, injectable } from 'inversify';
+import { sign, verify } from 'jsonwebtoken';
 
 import { APP_DI_TYPES } from 'app/app.di-types';
-import { ConfigServiceInterface } from 'config/config.service.interface';
+import { IConfigService } from 'config/config.service.interface';
 
-import { UserJWTPayloadInterface } from '../types/jwt.interface';
+import { IUserJwtPayload } from '../types/jwt.interface';
 
-import { AuthServiceInterface } from './auth.service.interface';
+import { IAuthService } from './auth.service.interface';
 
 @injectable()
-export class AuthService implements AuthServiceInterface {
-  constructor(@inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface) {}
+export class AuthService implements IAuthService {
+  constructor(@inject(APP_DI_TYPES.ConfigService) private configService: IConfigService) {}
 
   createToken(email: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
@@ -22,21 +22,22 @@ export class AuthService implements AuthServiceInterface {
         },
         this.configService.get('SECRET'),
         {
-          expiresIn: this.configService.getJwtExpiresIn(),
           algorithm: 'HS256',
+          expiresIn: this.configService.getJwtExpiresIn(),
         },
         (err, token) => {
           if (err instanceof Error) {
             return reject(err);
           }
+
           return resolve(token as string);
         },
       );
     });
   }
 
-  decodeToken(token: string): UserJWTPayloadInterface {
-    return verify(token, this.configService.get('SECRET')) as UserJWTPayloadInterface;
+  decodeToken(token: string): IUserJwtPayload {
+    return verify(token, this.configService.get('SECRET')) as IUserJwtPayload;
   }
 
   async validateToken(userPassword: string, password: string): Promise<boolean> {

@@ -18,10 +18,10 @@ export const Controller = (url?: string, middlewares?: Middleware | Middleware[]
       const finalMiddlewares = mixedMiddlewares.filter((middleware) => typeof middleware === 'function');
 
       const options: RouteType = {
-        method: route.method,
-        url: urlJoin(url, route.url),
         callback: route.callback,
         controller: constructor,
+        method: route.method,
+        url: urlJoin(url, route.url),
       };
 
       if (finalMiddlewares.length > 0) {

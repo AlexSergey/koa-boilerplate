@@ -1,16 +1,16 @@
-import { inject, injectable } from 'inversify';
 import { PrismaClient } from '@prisma/client';
+import { inject, injectable } from 'inversify';
 
-import { LoggerServiceInterface } from 'logger/logger.service.interface';
 import { APP_DI_TYPES } from 'app/app.di-types';
+import { ILoggerService } from 'logger/logger.service.interface';
 
-import { DatabaseServiceInterface } from './database.service.interface';
+import { IDatabaseService } from './database.service.interface';
 
 @injectable()
-export class DatabaseService implements DatabaseServiceInterface {
+export class DatabaseService implements IDatabaseService {
   client: PrismaClient;
 
-  constructor(@inject(APP_DI_TYPES.LoggerService) private loggerService: LoggerServiceInterface) {
+  constructor(@inject(APP_DI_TYPES.LoggerService) private loggerService: ILoggerService) {
     this.client = new PrismaClient();
   }
 

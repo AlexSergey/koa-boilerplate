@@ -1,6 +1,6 @@
 import { Statuses } from '../utils/get-status';
 
-import { ErrorInterface } from './error.interface';
+import { IError } from './error.interface';
 
 type PureErrorType = {
   code: string;
@@ -10,7 +10,12 @@ type PureErrorType = {
   status: Statuses;
 };
 
-export class BaseError extends Error implements ErrorInterface {
+export class BaseError extends Error implements IError {
+  constructor() {
+    super();
+    this.name = 'BaseError';
+  }
+
   public code: string;
 
   public statusCode: number;
@@ -24,13 +29,14 @@ export class BaseError extends Error implements ErrorInterface {
   get(): PureErrorType {
     const err: PureErrorType = {
       code: this.code,
-      statusCode: this.statusCode,
-      status: this.status,
       message: this.message,
+      status: this.status,
+      statusCode: this.statusCode,
     };
     if (this.data) {
       err.data = this.data;
     }
+
     return err;
   }
 }

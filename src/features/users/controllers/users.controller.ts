@@ -2,31 +2,31 @@ import { inject, injectable } from 'inversify';
 import { DefaultContext } from 'koa';
 
 import { APP_DI_TYPES } from 'app/app.di-types';
-import { Controller, Get, Post } from 'libs/router';
-import { LoggerServiceInterface } from 'logger/logger.service.interface';
-import { validateMiddleware } from 'middlewares/validate.middleware';
-import { UnauthorizedError, UserAlreadyExistsError, UserNotFoundError } from 'errors';
-import { ConfigServiceInterface } from 'config/config.service.interface';
 import { BaseController } from 'common';
+import { IConfigService } from 'config/config.service.interface';
+import { UnauthorizedError, UserAlreadyExistsError, UserNotFoundError } from 'errors';
+import { Controller, Get, Post } from 'libs/router';
+import { ILoggerService } from 'logger/logger.service.interface';
+import { validateMiddleware } from 'middlewares/validate.middleware';
 
+import { authGuard } from '../../../guards/auth.guard';
 import { UserLoginDto } from '../dtos/user-login.dto';
 import { UserRegisterDto } from '../dtos/user-register.dto';
+import { IAuthService } from '../services/auth.service.interface';
+import { IUsersService } from '../services/users.service.interface';
+import { IContextUser } from '../types/context-user.interface';
 import { USERS_DI_TYPES } from '../users.di-types';
-import { UsersServiceInterface } from '../services/users.service.interface';
-import { AuthServiceInterface } from '../services/auth.service.interface';
-import { authGuard } from '../../../guards/auth.guard';
-import { ContextUserInterface } from '../types/context-user.interface';
 
-import { UsersControllerInterface } from './users.controller.interface';
+import { IUsersController } from './users.controller.interface';
 
 @injectable()
 @Controller('users')
-export class UsersController extends BaseController implements UsersControllerInterface {
+export class UsersController extends BaseController implements IUsersController {
   constructor(
-    @inject(APP_DI_TYPES.LoggerService) private loggerService: LoggerServiceInterface,
-    @inject(USERS_DI_TYPES.UsersService) private usersService: UsersServiceInterface,
-    @inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface,
-    @inject(USERS_DI_TYPES.AuthService) private authService: AuthServiceInterface,
+    @inject(APP_DI_TYPES.LoggerService) private loggerService: ILoggerService,
+    @inject(USERS_DI_TYPES.UsersService) private usersService: IUsersService,
+    @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
+    @inject(USERS_DI_TYPES.AuthService) private authService: IAuthService,
   ) {
     super();
   }
@@ -105,21 +105,21 @@ export class UsersController extends BaseController implements UsersControllerIn
       throw new UserAlreadyExistsError();
     }
     this.ok(ctx, 'User created', {
-      id: result.id,
       email: result.email,
+      id: result.id,
     });
   }
 
   @Get('/info', authGuard)
-  async info(ctx: ContextUserInterface): Promise<void> {
+  async info(ctx: IContextUser): Promise<void> {
     const existedUser = await this.usersService.getUserInfo(ctx.user.email);
     if (!existedUser) {
       throw new UserNotFoundError();
     }
     this.ok(ctx, 'User found', {
       email: existedUser.email,
-      name: existedUser.name,
       id: existedUser.id,
+      name: existedUser.name,
     });
   }
 }

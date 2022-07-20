@@ -1,6 +1,6 @@
-import { Middleware } from 'koa';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
+import { Middleware } from 'koa';
 
 import { ValidationError } from 'errors';
 
@@ -14,6 +14,7 @@ export const validateMiddleware = (dto: ClassConstructor<object>): Middleware =>
         if (error.constraints) {
           src[error.property] = Object.values(error.constraints).join(', ');
         }
+
         return src;
       }, {});
 

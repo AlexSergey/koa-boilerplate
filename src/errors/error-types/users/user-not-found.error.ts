@@ -1,9 +1,14 @@
-import { getStatus } from '../../utils/get-status';
-import { USER_NOT_FOUND } from '../../constants/messages';
 import { BaseError } from '../../common/base.error';
-import type { ErrorInterface } from '../../common/error.interface';
+import type { IError } from '../../common/error.interface';
+import { USER_NOT_FOUND } from '../../constants/messages';
+import { getStatus } from '../../utils/get-status';
 
-export class UserNotFoundError extends BaseError implements ErrorInterface {
+export class UserNotFoundError extends BaseError implements IError {
+  constructor() {
+    super();
+    this.name = 'UserNotFoundError';
+  }
+
   public override code = USER_NOT_FOUND.code;
 
   public override statusCode = USER_NOT_FOUND.statusCode;

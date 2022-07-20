@@ -1,7 +1,7 @@
+import { IHttpService } from 'boundaries/http/http.service.interface';
 import { RoutesConfigType } from 'libs/router';
-import { HttpServiceInterface } from 'boundaries/http/http.service.interface';
 
-export interface FrameworkServiceInterface {
+export interface IFrameworkService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  bind: (httpService: HttpServiceInterface, controllers?: any[], routesConfig?: RoutesConfigType) => void;
+  bind: (httpService: IHttpService, controllers?: any[], routesConfig?: RoutesConfigType) => void;
 }

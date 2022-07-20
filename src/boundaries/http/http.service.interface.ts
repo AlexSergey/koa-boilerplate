@@ -1,6 +1,6 @@
-import { Server } from 'http';
+import { Server } from 'node:http';
 
-export interface HttpServiceInterface {
+export interface IHttpService {
   start: () => void;
   stop: () => void;
   getHttp: () => Server;

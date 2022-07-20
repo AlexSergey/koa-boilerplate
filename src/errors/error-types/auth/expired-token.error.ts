@@ -1,7 +1,7 @@
-import { getStatus } from '../../utils/get-status';
-import { TOKEN_EXPIRED } from '../../constants/messages';
 import { BaseError } from '../../common/base.error';
-import type { ErrorInterface } from '../../common/error.interface';
+import type { IError } from '../../common/error.interface';
+import { TOKEN_EXPIRED } from '../../constants/messages';
+import { getStatus } from '../../utils/get-status';
 
 /**
  * @openapi
@@ -31,7 +31,12 @@ import type { ErrorInterface } from '../../common/error.interface';
  *                 default: "fail"
  *                 description: Common error status
  */
-export class ExpiredTokenError extends BaseError implements ErrorInterface {
+export class ExpiredTokenError extends BaseError implements IError {
+  constructor() {
+    super();
+    this.name = 'ExpiredTokenError';
+  }
+
   public override code = TOKEN_EXPIRED.code;
 
   public override statusCode = TOKEN_EXPIRED.statusCode;

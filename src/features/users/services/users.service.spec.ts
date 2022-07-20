@@ -1,51 +1,51 @@
-import { Container } from 'inversify';
 import { UserModel } from '@prisma/client';
+import { Container } from 'inversify';
 import pino from 'pino';
 
 import { APP_DI_TYPES } from 'app/app.di-types';
-import { LoggerServiceInterface } from 'logger/logger.service.interface';
-import { ConfigServiceInterface } from 'config/config.service.interface';
+import { IConfigService } from 'config/config.service.interface';
+import { ILoggerService } from 'logger/logger.service.interface';
 
-import { USERS_DI_TYPES } from '../users.di-types';
-import { UsersRepositoryInterface } from '../repositories/users.repository.interface';
 import { UserEntity } from '../entities/user.entity';
+import { IUsersRepository } from '../repositories/users.repository.interface';
+import { USERS_DI_TYPES } from '../users.di-types';
 
-import { UsersServiceInterface } from './users.service.interface';
 import { UsersService } from './users.service';
+import { IUsersService } from './users.service.interface';
 
-const ConfigServiceMock: ConfigServiceInterface = {
+const ConfigServiceMock: IConfigService = {
   get: jest.fn(),
   getEnv: jest.fn(),
-  isDevelopment: jest.fn(),
   getJwtExpiresIn: jest.fn(),
+  isDevelopment: jest.fn(),
 };
 
-const UsersRepositoryMock: UsersRepositoryInterface = {
-  findByEmail: jest.fn(),
+const UsersRepositoryMock: IUsersRepository = {
   create: jest.fn(),
+  findByEmail: jest.fn(),
 };
 
-const LoggerMock: LoggerServiceInterface = {
-  logger: pino(),
-  log: jest.fn(),
+const LoggerMock: ILoggerService = {
   error: jest.fn(),
+  log: jest.fn(),
+  logger: pino(),
   warn: jest.fn(),
 };
 
 const container = new Container();
-let configService: ConfigServiceInterface;
-let usersRepository: UsersRepositoryInterface;
-let usersService: UsersServiceInterface;
+let configService: IConfigService;
+let usersRepository: IUsersRepository;
+let usersService: IUsersService;
 
 beforeAll(() => {
-  container.bind<UsersServiceInterface>(USERS_DI_TYPES.UsersService).to(UsersService);
-  container.bind<LoggerServiceInterface>(APP_DI_TYPES.LoggerService).toConstantValue(LoggerMock);
-  container.bind<ConfigServiceInterface>(APP_DI_TYPES.ConfigService).toConstantValue(ConfigServiceMock);
-  container.bind<UsersRepositoryInterface>(USERS_DI_TYPES.UsersRepository).toConstantValue(UsersRepositoryMock);
+  container.bind<IUsersService>(USERS_DI_TYPES.UsersService).to(UsersService);
+  container.bind<ILoggerService>(APP_DI_TYPES.LoggerService).toConstantValue(LoggerMock);
+  container.bind<IConfigService>(APP_DI_TYPES.ConfigService).toConstantValue(ConfigServiceMock);
+  container.bind<IUsersRepository>(USERS_DI_TYPES.UsersRepository).toConstantValue(UsersRepositoryMock);
 
-  configService = container.get<ConfigServiceInterface>(APP_DI_TYPES.ConfigService);
-  usersRepository = container.get<UsersRepositoryInterface>(USERS_DI_TYPES.UsersRepository);
-  usersService = container.get<UsersServiceInterface>(USERS_DI_TYPES.UsersService);
+  configService = container.get<IConfigService>(APP_DI_TYPES.ConfigService);
+  usersRepository = container.get<IUsersRepository>(USERS_DI_TYPES.UsersRepository);
+  usersService = container.get<IUsersService>(USERS_DI_TYPES.UsersService);
 });
 
 describe('Users service', () => {
@@ -54,17 +54,17 @@ describe('Users service', () => {
 
     usersRepository.create = jest.fn().mockImplementationOnce(
       (user: UserEntity): UserModel => ({
+        email: user.email,
         id: 1,
         name: user.name,
-        email: user.email,
         password: user.password,
       }),
     );
 
     const createdUser = await usersService.createUser({
       email: 'test@mail.com',
-      password: '123',
       name: 'John',
+      password: '123',
     });
 
     expect(createdUser?.id).toEqual(1);

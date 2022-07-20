@@ -1,8 +1,8 @@
 import Router from '@koa/router';
 import urlJoin from 'proper-url-join';
 
-import { RoutesConfigType } from './types';
 import { RouterStore } from './router.store';
+import { RoutesConfigType } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const bind = (router: Router, controllers: any[], config?: RoutesConfigType): void => {

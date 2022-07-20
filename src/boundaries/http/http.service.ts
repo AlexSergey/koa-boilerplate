@@ -1,21 +1,21 @@
-import { createServer, Server } from 'http';
+import { createServer, Server } from 'node:http';
 
-import enableDestroy from 'server-destroy';
 import { injectable, inject } from 'inversify';
+import enableDestroy from 'server-destroy';
 
-import { ConfigServiceInterface } from 'config/config.service.interface';
-import { LoggerServiceInterface } from 'logger/logger.service.interface';
 import { APP_DI_TYPES } from 'app/app.di-types';
+import { IConfigService } from 'config/config.service.interface';
+import { ILoggerService } from 'logger/logger.service.interface';
 
-import { HttpServiceInterface } from './http.service.interface';
+import { IHttpService } from './http.service.interface';
 
 @injectable()
-export class HttpService implements HttpServiceInterface {
+export class HttpService implements IHttpService {
   http: Server = createServer();
 
   constructor(
-    @inject(APP_DI_TYPES.LoggerService) private loggerService: LoggerServiceInterface,
-    @inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface,
+    @inject(APP_DI_TYPES.LoggerService) private loggerService: ILoggerService,
+    @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
   ) {}
 
   getHttp(): Server {
@@ -42,9 +42,11 @@ export class HttpService implements HttpServiceInterface {
       this.http.destroy((err) => {
         if (err instanceof Error) {
           this.loggerService.error(`HTTP Server stopped error: ${err.message}`);
+
           return reject();
         }
         this.loggerService.log('HTTP Server stopped');
+
         return resolve();
       });
     });

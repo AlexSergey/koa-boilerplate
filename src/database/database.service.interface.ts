@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-export interface DatabaseServiceInterface {
+export interface IDatabaseService {
   client: PrismaClient;
 
   connect(): Promise<void>;

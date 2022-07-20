@@ -1,7 +1,7 @@
-import { getStatus } from '../../utils/get-status';
-import { COMMENT_NOT_FOUND } from '../../constants/messages';
 import { BaseError } from '../../common/base.error';
-import type { ErrorInterface } from '../../common/error.interface';
+import type { IError } from '../../common/error.interface';
+import { COMMENT_NOT_FOUND } from '../../constants/messages';
+import { getStatus } from '../../utils/get-status';
 
 /**
  * @openapi
@@ -31,7 +31,12 @@ import type { ErrorInterface } from '../../common/error.interface';
  *                 default: "fail"
  *                 description: Common error status
  */
-export class CommentNotFound extends BaseError implements ErrorInterface {
+export class CommentNotFoundError extends BaseError implements IError {
+  constructor() {
+    super();
+    this.name = 'CommentNotFoundError';
+  }
+
   public override code = COMMENT_NOT_FOUND.code;
 
   public override statusCode = COMMENT_NOT_FOUND.statusCode;

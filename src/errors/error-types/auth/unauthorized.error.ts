@@ -1,7 +1,7 @@
-import { getStatus } from '../../utils/get-status';
-import { UNAUTHORIZED } from '../../constants/messages';
 import { BaseError } from '../../common/base.error';
-import type { ErrorInterface } from '../../common/error.interface';
+import type { IError } from '../../common/error.interface';
+import { UNAUTHORIZED } from '../../constants/messages';
+import { getStatus } from '../../utils/get-status';
 
 /**
  * @openapi
@@ -31,7 +31,12 @@ import type { ErrorInterface } from '../../common/error.interface';
  *                 default: "fail"
  *                 description: Common error status
  */
-export class UnauthorizedError extends BaseError implements ErrorInterface {
+export class UnauthorizedError extends BaseError implements IError {
+  constructor() {
+    super();
+    this.name = 'UnauthorizedError';
+  }
+
   public override code = UNAUTHORIZED.code;
 
   public override statusCode = UNAUTHORIZED.statusCode;

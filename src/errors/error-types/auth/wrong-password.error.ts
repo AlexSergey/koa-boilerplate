@@ -1,7 +1,7 @@
-import { getStatus } from '../../utils/get-status';
-import { WRONG_PASSWORD } from '../../constants/messages';
 import { BaseError } from '../../common/base.error';
-import type { ErrorInterface } from '../../common/error.interface';
+import type { IError } from '../../common/error.interface';
+import { WRONG_PASSWORD } from '../../constants/messages';
+import { getStatus } from '../../utils/get-status';
 
 /**
  * @openapi
@@ -31,7 +31,12 @@ import type { ErrorInterface } from '../../common/error.interface';
  *                 default: "fail"
  *                 description: Common error status
  */
-export class WrongPasswordError extends BaseError implements ErrorInterface {
+export class WrongPasswordError extends BaseError implements IError {
+  constructor() {
+    super();
+    this.name = 'WrongPasswordError';
+  }
+
   public override code = WRONG_PASSWORD.code;
 
   public override statusCode = WRONG_PASSWORD.statusCode;

@@ -1,6 +1,6 @@
-import { DefaultContext } from 'koa';
 import { UserModel } from '@prisma/client';
+import { DefaultContext } from 'koa';
 
-export interface ContextUserInterface extends DefaultContext {
+export interface IContextUser extends DefaultContext {
   user: UserModel;
 }

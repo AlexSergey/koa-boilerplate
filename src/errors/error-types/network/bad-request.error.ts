@@ -1,9 +1,14 @@
-import { getStatus } from '../../utils/get-status';
-import { BAD_REQUEST } from '../../constants/messages';
 import { BaseError } from '../../common/base.error';
-import type { ErrorInterface } from '../../common/error.interface';
+import type { IError } from '../../common/error.interface';
+import { BAD_REQUEST } from '../../constants/messages';
+import { getStatus } from '../../utils/get-status';
 
-export class BadRequestError extends BaseError implements ErrorInterface {
+export class BadRequestError extends BaseError implements IError {
+  constructor() {
+    super();
+    this.name = 'BadRequestError';
+  }
+
   public override code = BAD_REQUEST.code;
 
   public override statusCode = BAD_REQUEST.statusCode;

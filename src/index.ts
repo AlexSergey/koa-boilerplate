@@ -2,8 +2,8 @@ import 'reflect-metadata';
 import { Container } from 'inversify';
 
 import { AppComponent } from 'app/app.component';
-import { APP_DI_TYPES } from 'app/app.di-types';
 import { appDiContainer } from 'app/app.di-container';
+import { APP_DI_TYPES } from 'app/app.di-types';
 
 export type BootstrapReturnType = {
   app: AppComponent;
@@ -13,6 +13,7 @@ export type BootstrapReturnType = {
 const bootstrap = async (): Promise<BootstrapReturnType> => {
   const app = appDiContainer.get<AppComponent>(APP_DI_TYPES.App);
   await app.start();
+
   return { app, appDiContainer };
 };
 

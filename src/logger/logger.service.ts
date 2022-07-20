@@ -1,20 +1,20 @@
-import pino, { Logger } from 'pino';
 import { injectable } from 'inversify';
+import pino, { Logger } from 'pino';
 
-import { LoggerServiceInterface } from './logger.service.interface';
+import { ILoggerService } from './logger.service.interface';
 
 @injectable()
-export class LoggerService implements LoggerServiceInterface {
+export class LoggerService implements ILoggerService {
   public logger: Logger;
 
   constructor() {
     this.logger = pino({
       transport: {
-        target: 'pino-pretty',
         options: {
           colorize: true,
           translateTime: "yyyy-mm-dd'|'HH:MM:ss",
         },
+        target: 'pino-pretty',
       },
     });
   }

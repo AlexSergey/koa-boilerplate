@@ -9,6 +9,7 @@ export class RouterStore {
     if (!RouterStore.instance) {
       RouterStore.instance = new RouterStore();
     }
+
     return RouterStore.instance;
   }
 
@@ -17,6 +18,7 @@ export class RouterStore {
     if (existed) {
       // eslint-disable-next-line no-console
       console.log(`Route ${existed.url} for method ${existed.method} has already existed`);
+
       return;
     }
     this.routes.push(route);
