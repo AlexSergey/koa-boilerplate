@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { DefaultContext } from 'koa';
 
 import { IAuthService } from '../src/features/users/services/auth.service.interface';

@@ -1,1 +1,1 @@
-export * from './base.classes';
+export * from './classes';
