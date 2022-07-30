@@ -102,5 +102,5 @@ test-reports
 .clinic
 
 # Database
+prisma/db.*
 prisma/dev.db
-prisma/dev.db-journal
