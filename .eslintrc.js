@@ -100,6 +100,12 @@ module.exports = {
 
     'sort-keys-fix/sort-keys-fix': 'warn',
 
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['**/*.test.js', '**/*.spec.js'],
+      },
+    ],
     'import/order': [
       'error',
       {
