@@ -24,6 +24,7 @@
     "format:prettier": "prettier --write \"src/**/*.{ts,tsx,json}\" \"types/**/*.{ts,tsx,json}\" \"prisma/**/*.{ts,tsx,json}\" \"test/**/*.{ts,tsx,json}\"",
     "lint": "npm run lint:ts && npm run lint:code",
     "lint:code": "eslint --ext .ts,.json src/ --ext .ts,.json types/ --ext .ts,.json prisma/ --ext .ts,.json test/",
+    "lint:commit": "commitlint -e",
     "lint:ts": "tsc --noEmit",
     "prepare": "husky install",
     "start": "npm run start:dev",
@@ -62,6 +63,8 @@
     "supertest": "^6.2.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@types/bcrypt": "^5.0.0",
     "@types/debug": "^4.1.7",
     "@types/jest": "^27.4.1",
