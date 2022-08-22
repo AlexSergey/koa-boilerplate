@@ -22,6 +22,7 @@ describe('Users e2e', () => {
       name: 'test_user',
       password: 'test_user_password',
     });
+
     expect(res.statusCode).toBe(200);
   });
 
@@ -31,6 +32,7 @@ describe('Users e2e', () => {
       name: 'test_user2',
       password: '123',
     });
+
     expect(res.body.data.password).toBe('Password is too short. Minimal length is 5 characters, but actual is 123');
   });
 });

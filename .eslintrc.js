@@ -18,7 +18,7 @@ module.exports = {
     jest: true,
   },
   ignorePatterns: ['.eslintrc.js', '.eslintrc.cjs'],
-  plugins: ['import', 'unicorn', '@typescript-eslint', 'sort-keys-fix', 'check-file'],
+  plugins: ['import', 'unicorn', '@typescript-eslint', 'sort-keys-fix', 'check-file', 'jest-formatting'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -149,17 +149,32 @@ module.exports = {
     ],
   },
   overrides: [
+    /*
+      <-------------CONFIGS RULES------------->
+    */
     {
       files: ['jest.config.ts', 'jest.e2e.config.ts'],
       rules: {
         'import/no-default-export': 'off',
       },
     },
+    /*
+      <-------------JSON RULES------------->
+    */
     {
       files: ['**/**/*.json'],
       rules: {
         '@typescript-eslint/no-unused-expressions': 'off',
         'prettier/prettier': 'off',
+      },
+    },
+    /*
+      <-------------SPEC RULES------------->
+    */
+    {
+      files: ['**/*.spec.ts', '**/*.e2e-spec.ts'],
+      rules: {
+        'jest-formatting/padding-around-all': 'error',
       },
     },
   ],
