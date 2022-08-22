@@ -6,7 +6,7 @@ import { compilerOptions } from './tsconfig.json';
 const config: Config.InitialOptions = {
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '<rootDir>/coverage/unit',
-  moduleDirectories: ['node_modules'],
+  moduleDirectories: ['node_modules', '<rootDir>/src'],
   moduleFileExtensions: ['js', 'json', 'ts'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths) as { [key: string]: string | string[] },
   preset: 'ts-jest',
