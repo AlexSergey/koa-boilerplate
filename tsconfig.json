@@ -59,6 +59,10 @@
       ]
     }
   },
+  "typeRoots": [
+    "types",
+    "node_modules/@types"
+  ],
   "include": [
     "./src/**/**/*",
     "jest.e2e.config.ts",
