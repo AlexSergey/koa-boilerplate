@@ -5,5 +5,4 @@ export const APP_DI_TYPES = {
   FrameworkService: Symbol.for('FrameworkService'),
   HttpService: Symbol.for('HttpService'),
   IndexController: Symbol.for('IndexController'),
-  LoggerService: Symbol.for('LoggerService'),
 };

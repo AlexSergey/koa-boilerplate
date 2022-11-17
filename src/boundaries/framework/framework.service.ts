@@ -12,7 +12,7 @@ import { IConfigService } from 'config/config.service.interface';
 import { errorHandlerMiddleware, ValidationError } from 'errors';
 import { USERS_DI_TYPES } from 'features/users/users.di-types';
 import { bind, RoutesConfigType } from 'libs/router';
-import { ILoggerService } from 'logger/logger.service.interface';
+import { logger } from 'logger';
 
 import { IAuthService } from '../../features/users/services/auth.service.interface';
 import { IUsersService } from '../../features/users/services/users.service.interface';
@@ -23,7 +23,6 @@ import { IFrameworkService } from './framework.service.interface';
 @injectable()
 export class FrameworkService implements IFrameworkService {
   constructor(
-    @inject(APP_DI_TYPES.LoggerService) private loggerService: ILoggerService,
     @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
     @inject(USERS_DI_TYPES.UsersService) private usersService: IUsersService,
     @inject(USERS_DI_TYPES.AuthService) private authService: IAuthService,
@@ -33,7 +32,6 @@ export class FrameworkService implements IFrameworkService {
 
   private injectContext(): void {
     this.framework.use(async (ctx, next) => {
-      ctx.logger = this.loggerService;
       ctx.services = {
         authService: this.authService,
         usersService: this.usersService,
@@ -46,7 +44,7 @@ export class FrameworkService implements IFrameworkService {
     this.framework.use(
       loggerMiddleware({
         transporter: (message) => {
-          this.loggerService.log(message);
+          logger.info(message);
         },
       }),
     );
@@ -67,7 +65,7 @@ export class FrameworkService implements IFrameworkService {
     this.framework.use(
       bodyParserMiddleware({
         onerror: (error, ctx) => {
-          this.loggerService.warn('Parsing error', { ctx, error });
+          logger.warn('[bodyParser] Parsing error', { ctx, error });
           const pureError = new ValidationError({
             bodyparser: error.message,
           }).get();

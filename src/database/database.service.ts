@@ -1,8 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { inject, injectable } from 'inversify';
+import { injectable } from 'inversify';
 
-import { APP_DI_TYPES } from 'app/app.di-types';
-import { ILoggerService } from 'logger/logger.service.interface';
+import { logger } from 'logger';
 
 import { IDatabaseService } from './database.service.interface';
 
@@ -10,23 +9,21 @@ import { IDatabaseService } from './database.service.interface';
 export class DatabaseService implements IDatabaseService {
   client: PrismaClient;
 
-  constructor(@inject(APP_DI_TYPES.LoggerService) private loggerService: ILoggerService) {
+  constructor() {
     this.client = new PrismaClient();
   }
 
   async connect(): Promise<void> {
     try {
       await this.client.$connect();
-      this.loggerService.log('[Prisma] Connected');
+      logger.info('[Prisma] Connected');
     } catch (e) {
-      if (e instanceof Error) {
-        this.loggerService.error(e.message);
-      }
+      logger.error(e);
     }
   }
 
   async disconnect(): Promise<void> {
     await this.client.$disconnect();
-    this.loggerService.log('[Prisma] Disconnected');
+    logger.info('[Prisma] Disconnected');
   }
 }

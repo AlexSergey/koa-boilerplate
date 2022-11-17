@@ -6,14 +6,12 @@ import { IConfigService } from 'config/config.service.interface';
 import { IDatabaseService } from 'database/database.service.interface';
 import { IUsersController } from 'features/users/controllers/users.controller.interface';
 import { USERS_DI_TYPES } from 'features/users/users.di-types';
-import { ILoggerService } from 'logger/logger.service.interface';
 
 import { APP_DI_TYPES } from './app.di-types';
 
 @injectable()
 export class AppComponent {
   constructor(
-    @inject(APP_DI_TYPES.LoggerService) private loggerService: ILoggerService,
     @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
     @inject(APP_DI_TYPES.HttpService) private httpService: IHttpService,
     @inject(APP_DI_TYPES.FrameworkService) private frameworkService: IFrameworkService,

@@ -13,8 +13,7 @@ import { IUsersRepository } from 'features/users/repositories/users.repository.i
 import { UsersService } from 'features/users/services/users.service';
 import { IUsersService } from 'features/users/services/users.service.interface';
 import { USERS_DI_TYPES } from 'features/users/users.di-types';
-import { LoggerService } from 'logger/logger.service';
-import { ILoggerService } from 'logger/logger.service.interface';
+import { logger } from 'logger';
 
 @injectable()
 class SeedAdminUser {
@@ -23,7 +22,6 @@ class SeedAdminUser {
   constructor(
     @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
     @inject(APP_DI_TYPES.DatabaseService) private databaseService: IDatabaseService,
-    @inject(APP_DI_TYPES.LoggerService) private loggerService: ILoggerService,
     @inject(USERS_DI_TYPES.UsersService) private usersService: IUsersService,
   ) {}
 
@@ -37,7 +35,7 @@ class SeedAdminUser {
       password,
     });
     await this.usersService.createUser(instance);
-    this.loggerService.log(`Admin user for ${this.configService.getEnv()} environment was created`);
+    logger.info(`Admin user for ${this.configService.getEnv()} environment was created`);
   };
 
   disconnect = async (): Promise<void> => {
@@ -48,7 +46,6 @@ const container = new Container();
 container.bind<IUsersRepository>(USERS_DI_TYPES.UsersRepository).to(UsersRepository);
 container.bind<IUsersService>(USERS_DI_TYPES.UsersService).to(UsersService);
 container.bind<IDatabaseService>(APP_DI_TYPES.DatabaseService).to(DatabaseService);
-container.bind<ILoggerService>(APP_DI_TYPES.LoggerService).to(LoggerService);
 container.bind<IConfigService>(APP_DI_TYPES.ConfigService).to(ConfigService);
 container.bind<SeedAdminUser>(SeedAdminUser.key).to(SeedAdminUser);
 

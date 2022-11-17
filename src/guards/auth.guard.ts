@@ -1,6 +1,6 @@
 import { DefaultState, Middleware } from 'koa';
 
-import { UnauthorizedError, ExpiredTokenError, UserNotFoundError, ProxyError } from 'errors';
+import { UnauthorizedError, ExpiredTokenError, UserNotFoundError } from 'errors';
 
 import { IContextUser } from '../features/users/types/context-user.interface';
 
@@ -19,19 +19,12 @@ export const authGuard: Middleware<DefaultState, IContextUser> = async (ctx, nex
   } catch (e) {
     throw new ExpiredTokenError();
   }
+
   if (!currentUser.email) {
     throw new UnauthorizedError();
   }
 
-  let user;
-
-  try {
-    user = await ctx.services.usersService.getUserInfo(currentUser.email);
-  } catch (e) {
-    if (e instanceof Error) {
-      throw new ProxyError(e);
-    }
-  }
+  const user = await ctx.services.usersService.getUserInfo(currentUser.email);
 
   if (!user) {
     throw new UserNotFoundError();

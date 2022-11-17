@@ -3,7 +3,6 @@ import { inject, injectable } from 'inversify';
 
 import { APP_DI_TYPES } from 'app/app.di-types';
 import { IConfigService } from 'config/config.service.interface';
-import { ILoggerService } from 'logger/logger.service.interface';
 
 import { UserLoginDto } from '../dtos/user-login.dto';
 import { UserRegisterDto } from '../dtos/user-register.dto';
@@ -16,7 +15,6 @@ import { IUsersService } from './users.service.interface';
 @injectable()
 export class UsersService implements IUsersService {
   constructor(
-    @inject(APP_DI_TYPES.LoggerService) private loggerService: ILoggerService,
     @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
     @inject(USERS_DI_TYPES.UsersRepository) private usersRepository: IUsersRepository,
   ) {}
@@ -26,9 +24,8 @@ export class UsersService implements IUsersService {
     const salt = this.configService.get('SALT');
     await newUser.setPassword(password, Number(salt));
     const existedUser = await this.usersRepository.findByEmail(email);
-    if (existedUser) {
-      this.loggerService.error(`User with email: ${email} is already existed`);
 
+    if (existedUser) {
       return null;
     }
 
@@ -38,8 +35,6 @@ export class UsersService implements IUsersService {
   async loginUser({ email, password }: UserLoginDto): Promise<boolean> {
     const user = await this.usersRepository.findByEmail(email);
     if (!user) {
-      this.loggerService.error(`User not found`);
-
       return false;
     }
     const userEntity = new UserEntity(user.email, user.name, user.password);
@@ -48,13 +43,6 @@ export class UsersService implements IUsersService {
   }
 
   async getUserInfo(email: string): Promise<UserModel | null> {
-    const user = await this.usersRepository.findByEmail(email);
-    if (!user) {
-      this.loggerService.error(`User not found`);
-
-      return null;
-    }
-
-    return user;
+    return await this.usersRepository.findByEmail(email);
   }
 }

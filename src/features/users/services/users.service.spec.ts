@@ -1,10 +1,8 @@
 import { UserModel } from '@prisma/client';
 import { Container } from 'inversify';
-import pino from 'pino';
 
 import { APP_DI_TYPES } from 'app/app.di-types';
 import { IConfigService } from 'config/config.service.interface';
-import { ILoggerService } from 'logger/logger.service.interface';
 
 import { UserEntity } from '../entities/user.entity';
 import { IUsersRepository } from '../repositories/users.repository.interface';
@@ -25,13 +23,6 @@ const UsersRepositoryMock: IUsersRepository = {
   findByEmail: jest.fn(),
 };
 
-const LoggerMock: ILoggerService = {
-  error: jest.fn(),
-  log: jest.fn(),
-  logger: pino(),
-  warn: jest.fn(),
-};
-
 const container = new Container();
 let configService: IConfigService;
 let usersRepository: IUsersRepository;
@@ -39,7 +30,6 @@ let usersService: IUsersService;
 
 beforeAll(() => {
   container.bind<IUsersService>(USERS_DI_TYPES.UsersService).to(UsersService);
-  container.bind<ILoggerService>(APP_DI_TYPES.LoggerService).toConstantValue(LoggerMock);
   container.bind<IConfigService>(APP_DI_TYPES.ConfigService).toConstantValue(ConfigServiceMock);
   container.bind<IUsersRepository>(USERS_DI_TYPES.UsersRepository).toConstantValue(UsersRepositoryMock);
 

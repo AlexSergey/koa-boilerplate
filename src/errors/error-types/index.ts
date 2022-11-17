@@ -11,5 +11,4 @@ export * from './comments/comment-not-found.error';
 export * from './file/bad-file-format.error';
 export * from './file/multer.error';
 export * from './access/incorrect-access.error';
-export * from './common/proxy.error';
 export * from './validation/validation.error';

@@ -8,14 +8,11 @@ import { ConfigService } from 'config/config.service';
 import { IConfigService } from 'config/config.service.interface';
 import { DatabaseService } from 'database/database.service';
 import { IDatabaseService } from 'database/database.service.interface';
-import { LoggerService } from 'logger/logger.service';
-import { ILoggerService } from 'logger/logger.service.interface';
 
 import { AppComponent } from './app.component';
 import { APP_DI_TYPES } from './app.di-types';
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
-  bind<ILoggerService>(APP_DI_TYPES.LoggerService).to(LoggerService).inSingletonScope();
   bind<IConfigService>(APP_DI_TYPES.ConfigService).to(ConfigService).inSingletonScope();
   bind<IHttpService>(APP_DI_TYPES.HttpService).to(HttpService).inSingletonScope();
   bind<IFrameworkService>(APP_DI_TYPES.FrameworkService).to(FrameworkService);

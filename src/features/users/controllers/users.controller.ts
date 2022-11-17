@@ -6,7 +6,6 @@ import { BaseController } from 'common';
 import { IConfigService } from 'config/config.service.interface';
 import { UnauthorizedError, UserAlreadyExistsError, UserNotFoundError } from 'errors';
 import { Controller, Get, Post } from 'libs/router';
-import { ILoggerService } from 'logger/logger.service.interface';
 import { validateMiddleware } from 'middlewares/validate.middleware';
 
 import { authGuard } from '../../../guards/auth.guard';
@@ -23,7 +22,6 @@ import { IUsersController } from './users.controller.interface';
 @Controller('users')
 export class UsersController extends BaseController implements IUsersController {
   constructor(
-    @inject(APP_DI_TYPES.LoggerService) private loggerService: ILoggerService,
     @inject(USERS_DI_TYPES.UsersService) private usersService: IUsersService,
     @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
     @inject(USERS_DI_TYPES.AuthService) private authService: IAuthService,

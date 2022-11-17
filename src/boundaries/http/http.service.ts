@@ -5,7 +5,7 @@ import enableDestroy from 'server-destroy';
 
 import { APP_DI_TYPES } from 'app/app.di-types';
 import { IConfigService } from 'config/config.service.interface';
-import { ILoggerService } from 'logger/logger.service.interface';
+import { logger } from 'logger';
 
 import { IHttpService } from './http.service.interface';
 
@@ -13,10 +13,7 @@ import { IHttpService } from './http.service.interface';
 export class HttpService implements IHttpService {
   http: Server = createServer();
 
-  constructor(
-    @inject(APP_DI_TYPES.LoggerService) private loggerService: ILoggerService,
-    @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
-  ) {}
+  constructor(@inject(APP_DI_TYPES.ConfigService) private configService: IConfigService) {}
 
   getHttp(): Server {
     return this.http;
@@ -31,7 +28,7 @@ export class HttpService implements IHttpService {
     });
 
     await serverListenPromise;
-    this.loggerService.log(`HTTP server started on ${port}`);
+    logger.info(`⚡️[server]: Server is running at http://localhost:${port}`);
   }
 
   async stop(): Promise<void> {
@@ -41,11 +38,11 @@ export class HttpService implements IHttpService {
     return new Promise<void>((resolve, reject) => {
       this.http.destroy((err) => {
         if (err instanceof Error) {
-          this.loggerService.error(`HTTP Server stopped error: ${err.message}`);
+          logger.error(`HTTP Server stopped error: ${err.message}`);
 
           return reject();
         }
-        this.loggerService.log('HTTP Server stopped');
+        logger.info('HTTP Server stopped');
 
         return resolve();
       });
