@@ -1,7 +1,8 @@
 {
   "ts-node": {
     "moduleTypes": {
-      "jest.config.ts": "cjs"
+      "jest.config.ts": "cjs",
+      "jest.e2e.config.ts": "cjs"
     }
   },
   "compilerOptions": {
