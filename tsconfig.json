@@ -48,6 +48,7 @@
     "./src/**/**/*",
     "jest.e2e.config.ts",
     "jest.config.ts",
+    "jest.setup.ts",
     "swagger.generate.ts",
     "./types/**/**/*",
     "./test/**/**/*",

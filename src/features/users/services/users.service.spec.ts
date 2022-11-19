@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { jest } from '@jest/globals';
 import { UserModel } from '@prisma/client';
 import { Container } from 'inversify';
 
@@ -10,17 +12,17 @@ import { USERS_DI_TYPES } from '../users.di-types';
 import { UsersService } from './users.service';
 import { IUsersService } from './users.service.interface';
 
-const ConfigServiceMock: IConfigService = {
+const ConfigServiceMock = {
   get: jest.fn(),
   getEnv: jest.fn(),
   getJwtExpiresIn: jest.fn(),
   isDevelopment: jest.fn(),
-};
+} as IConfigService;
 
-const UsersRepositoryMock: IUsersRepository = {
+const UsersRepositoryMock = {
   create: jest.fn(),
   findByEmail: jest.fn(),
-};
+} as IUsersRepository;
 
 const container = new Container();
 let configService: IConfigService;
@@ -39,9 +41,13 @@ beforeAll(() => {
 
 describe('Users service', () => {
   it('Create user', async () => {
-    configService.get = jest.fn().mockReturnValue('1');
+    configService.get = jest.fn().mockReturnValue('1') as (key: string) => string;
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     usersRepository.create = jest.fn().mockImplementationOnce(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       (user: UserEntity): UserModel => ({
         email: user.email,
         id: 1,

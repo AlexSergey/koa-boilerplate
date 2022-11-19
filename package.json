@@ -35,8 +35,8 @@
     "start:dev": "cross-env NODE_ENV=development nodemon ./src/index.ts",
     "start:prod": "cross-env NODE_ENV=production node --experimental-specifier-resolution=node dist/index.js",
     "swagger:generate": "ts-node swagger.generate.ts",
-    "test": "cross-env NODE_ENV=test jest",
-    "test:coverage": "cross-env NODE_ENV=test jest --coverage",
+    "test": "cross-env NODE_ENV=test node --experimental-vm-modules --experimental-specifier-resolution=node node_modules/jest/bin/jest.js",
+    "test:coverage": "cross-env NODE_ENV=test node --experimental-vm-modules --experimental-specifier-resolution=node node_modules/jest/bin/jest.js --coverage",
     "test:e2e": "npm run db:clean && cross-env NODE_ENV=test node --experimental-vm-modules --experimental-specifier-resolution=node node_modules/jest/bin/jest.js --config jest.e2e.config.ts",
     "test:e2e:coverage": "npm run db:clean && cross-env NODE_ENV=test node --experimental-vm-modules --experimental-specifier-resolution=node node_modules/jest/bin/jest.js --config jest.e2e.config.ts --coverage"
   },
@@ -67,6 +67,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
+    "@jest/globals": "^29.3.1",
     "@types/bcrypt": "^5.0.0",
     "@types/debug": "^4.1.7",
     "@types/jest": "^29.2.3",
