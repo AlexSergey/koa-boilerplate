@@ -1,8 +1,8 @@
 import supertest from 'supertest';
 
-import { APP_DI_TYPES, AppComponent } from 'app';
-
 import { boot } from '../src';
+import { AppComponent } from '../src/app/app.component';
+import { APP_DI_TYPES } from '../src/app/app.di-types';
 import { IHttpService } from '../src/boundaries/http/http.service.interface';
 
 let application: AppComponent;

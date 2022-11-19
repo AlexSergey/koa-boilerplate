@@ -2,18 +2,18 @@ import 'reflect-metadata';
 import { plainToInstance } from 'class-transformer';
 import { Container, inject, injectable } from 'inversify';
 
-import { APP_DI_TYPES } from 'app';
-import { ConfigService } from 'config/config.service';
-import { IConfigService } from 'config/config.service.interface';
-import { DatabaseService } from 'database/database.service';
-import { IDatabaseService } from 'database/database.service.interface';
-import { UserRegisterDto } from 'features/users/dtos/user-register.dto';
-import { UsersRepository } from 'features/users/repositories/users.repository';
-import { IUsersRepository } from 'features/users/repositories/users.repository.interface';
-import { UsersService } from 'features/users/services/users.service';
-import { IUsersService } from 'features/users/services/users.service.interface';
-import { USERS_DI_TYPES } from 'features/users/users.di-types';
-import { logger } from 'logger';
+import { APP_DI_TYPES } from '../src/app/app.di-types';
+import { ConfigService } from '../src/config/config.service';
+import { IConfigService } from '../src/config/config.service.interface';
+import { DatabaseService } from '../src/database/database.service';
+import { IDatabaseService } from '../src/database/database.service.interface';
+import { UserRegisterDto } from '../src/features/users/dtos/user-register.dto';
+import { UsersRepository } from '../src/features/users/repositories/users.repository';
+import { IUsersRepository } from '../src/features/users/repositories/users.repository.interface';
+import { UsersService } from '../src/features/users/services/users.service';
+import { IUsersService } from '../src/features/users/services/users.service.interface';
+import { USERS_DI_TYPES } from '../src/features/users/users.di-types';
+import { logger } from '../src/logger';
 
 @injectable()
 class SeedAdminUser {
@@ -55,6 +55,7 @@ seedAdmin
   .catch((e) => {
     // eslint-disable-next-line no-console
     console.log(e);
+    // eslint-disable-next-line no-process-exit
     process.exit(1);
   })
   .finally(seedAdmin.disconnect);

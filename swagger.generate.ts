@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs';
+import { writeFileSync } from 'node:fs';
 
 import { config, DotenvConfigOutput, DotenvParseOutput } from 'dotenv';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -10,17 +10,17 @@ const result: DotenvConfigOutput = config();
 const conf = result.parsed as DotenvParseOutput;
 
 const options = {
+  apis: ['./src/errors/error-types/**/*.error.ts', './src/**/*.controller.ts'],
   swaggerDefinition: {
     basePath: '/api/v1',
-    openapi: '3.0.0',
     host: conf.HOST as string,
-    schemes: [conf.PROTOTCOL as string],
     info: {
       title: name,
       version,
     },
+    openapi: '3.0.0',
+    schemes: [conf.PROTOTCOL as string],
   },
-  apis: ['./src/errors/error-types/**/*.error.ts', './src/**/*.controller.ts'],
 };
 
 const openapiSpecification = swaggerJsdoc(options);

@@ -1,6 +1,6 @@
 import { Middleware } from 'koa';
 
-import { logger } from 'logger';
+import { logger } from '../logger';
 
 import { BaseError } from './common/base.error';
 import { BadRequestError } from './error-types';

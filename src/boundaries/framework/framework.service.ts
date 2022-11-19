@@ -1,3 +1,7 @@
+import { readFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import corsMiddleware from '@koa/cors';
 import Router from '@koa/router';
 import { inject, injectable } from 'inversify';
@@ -6,19 +10,23 @@ import bodyParserMiddleware from 'koa-bodyparser';
 import loggerMiddleware from 'koa-logger';
 import { koaSwagger } from 'koa2-swagger-ui';
 
-import { APP_DI_TYPES } from 'app/app.di-types';
-import { IHttpService } from 'boundaries/http/http.service.interface';
-import { IConfigService } from 'config/config.service.interface';
-import { errorHandlerMiddleware, ValidationError } from 'errors';
-import { USERS_DI_TYPES } from 'features/users/users.di-types';
-import { bind, RoutesConfigType } from 'libs/router';
-import { logger } from 'logger';
-
+import { APP_DI_TYPES } from '../../app/app.di-types';
+import { IConfigService } from '../../config/config.service.interface';
+import { errorHandlerMiddleware, ValidationError } from '../../errors';
 import { IAuthService } from '../../features/users/services/auth.service.interface';
 import { IUsersService } from '../../features/users/services/users.service.interface';
-import openapiSpec from '../../openapi.json';
+import { USERS_DI_TYPES } from '../../features/users/users.di-types';
+import { bind, RoutesConfigType } from '../../libs/router';
+import { logger } from '../../logger';
+import { IHttpService } from '../http/http.service.interface';
 
 import { IFrameworkService } from './framework.service.interface';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = dirname(__filename);
+
+const openapiSpec = JSON.parse(readFileSync(resolve(__dirname, '../../openapi.json'), 'utf8'));
 
 @injectable()
 export class FrameworkService implements IFrameworkService {

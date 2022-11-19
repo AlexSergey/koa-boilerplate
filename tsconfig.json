@@ -1,21 +1,20 @@
 {
   "ts-node": {
-    "files": true,
-    "require": [
-      "tsconfig-paths/register"
-    ]
+    "moduleTypes": {
+      "jest.config.ts": "cjs"
+    }
   },
   "compilerOptions": {
     "baseUrl": "src/",
     "outDir": "./dist/",
 
-    // Node.js 16
+    // Node.js 18
     "lib": [
-      "es2021",
+      "es2022",
       "dom"
     ],
-    "module": "commonjs",
-    "target": "ES2021",
+    "module": "es2022",
+    "target": "ES2022",
     "moduleResolution": "node",
     "esModuleInterop": true,
 
@@ -38,40 +37,7 @@
     "noImplicitReturns": true,
     "noImplicitOverride": true,
     "noEmitOnError": true,
-    "preserveConstEnums": true,
-
-    "paths": {
-      "app": [
-        "app"
-      ],
-      "common": [
-        "common"
-      ],
-      "boundaries": [
-        "boundaries"
-      ],
-      "config": [
-        "config"
-      ],
-      "database": [
-        "database"
-      ],
-      "errors": [
-        "errors"
-      ],
-      "features": [
-        "features"
-      ],
-      "libs": [
-        "libs"
-      ],
-      "logger": [
-        "logger"
-      ],
-      "middlewares": [
-        "middlewares"
-      ]
-    }
+    "preserveConstEnums": true
   },
   "typeRoots": [
     "types",

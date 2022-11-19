@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 
-import { usersBindings } from 'features/users/di-bindings';
+import { usersBindings } from '../features/users/di-bindings';
 
 import { appBindings } from './app.di-bindings';
 

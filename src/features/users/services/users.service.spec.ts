@@ -1,9 +1,8 @@
 import { UserModel } from '@prisma/client';
 import { Container } from 'inversify';
 
-import { APP_DI_TYPES } from 'app/app.di-types';
-import { IConfigService } from 'config/config.service.interface';
-
+import { APP_DI_TYPES } from '../../../app/app.di-types';
+import { IConfigService } from '../../../config/config.service.interface';
 import { UserEntity } from '../entities/user.entity';
 import { IUsersRepository } from '../repositories/users.repository.interface';
 import { USERS_DI_TYPES } from '../users.di-types';

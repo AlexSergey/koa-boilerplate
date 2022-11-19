@@ -1,11 +1,16 @@
-import { resolve } from 'node:path';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { config, DotenvConfigOutput, DotenvParseOutput } from 'dotenv';
 import { injectable } from 'inversify';
 
-import { logger } from 'logger';
+import { logger } from '../logger';
 
 import { IConfigService, EnvType } from './config.service.interface';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = dirname(__filename);
 
 const pathToEnvFiles = {
   development: resolve(__dirname, '../../', '.env.development'),

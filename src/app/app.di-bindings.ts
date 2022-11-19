@@ -1,13 +1,13 @@
 import { ContainerModule, interfaces } from 'inversify';
 
-import { FrameworkService } from 'boundaries/framework/framework.service';
-import { IFrameworkService } from 'boundaries/framework/framework.service.interface';
-import { HttpService } from 'boundaries/http/http.service';
-import { IHttpService } from 'boundaries/http/http.service.interface';
-import { ConfigService } from 'config/config.service';
-import { IConfigService } from 'config/config.service.interface';
-import { DatabaseService } from 'database/database.service';
-import { IDatabaseService } from 'database/database.service.interface';
+import { FrameworkService } from '../boundaries/framework/framework.service';
+import { IFrameworkService } from '../boundaries/framework/framework.service.interface';
+import { HttpService } from '../boundaries/http/http.service';
+import { IHttpService } from '../boundaries/http/http.service.interface';
+import { ConfigService } from '../config/config.service';
+import { IConfigService } from '../config/config.service.interface';
+import { DatabaseService } from '../database/database.service';
+import { IDatabaseService } from '../database/database.service.interface';
 
 import { AppComponent } from './app.component';
 import { APP_DI_TYPES } from './app.di-types';

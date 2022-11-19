@@ -2,7 +2,7 @@ import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 import { Middleware } from 'koa';
 
-import { ValidationError } from 'errors';
+import { ValidationError } from '../errors';
 
 export const validateMiddleware = (dto: ClassConstructor<object>): Middleware => {
   return async (ctx, next): Promise<void> => {

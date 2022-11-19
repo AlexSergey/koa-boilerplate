@@ -1,24 +1,20 @@
-import { join } from 'node:path';
+import { Logger } from 'tslog';
 
-import pino from 'pino';
+enum LOG_TYPE {
+  hidden = 'hidden',
+  json = 'json',
+  pretty = 'pretty',
+}
 
-const logsFolder = 'logs';
+const TYPES = {
+  development: LOG_TYPE.pretty,
+  production: LOG_TYPE.json,
+  test: LOG_TYPE.hidden,
+};
 
-const streams = [
-  { stream: process.stdout },
-  { stream: pino.destination(join(__dirname, '..', '..', logsFolder, 'combined.log')) },
-];
+const type =
+  process.env.NODE_ENV && process.env.NODE_ENV in TYPES
+    ? TYPES[process.env.NODE_ENV as keyof typeof TYPES]
+    : TYPES.development;
 
-export const logger = pino(
-  {
-    enabled: process.env.NODE_ENV !== 'test',
-    transport: {
-      options: {
-        colorize: true,
-        translateTime: "yyyy-mm-dd'|'HH:MM:ss",
-      },
-      target: 'pino-pretty',
-    },
-  },
-  pino.multistream(streams),
-);
+export const logger: Logger<{}> = new Logger({ type });

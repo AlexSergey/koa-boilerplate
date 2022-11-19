@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
 
-import { AppComponent } from 'app/app.component';
-import { appDiContainer } from 'app/app.di-container';
-import { APP_DI_TYPES } from 'app/app.di-types';
+import { AppComponent } from './app/app.component';
+import { appDiContainer } from './app/app.di-container';
+import { APP_DI_TYPES } from './app/app.di-types';
 
 export type BootstrapReturnType = {
   app: AppComponent;

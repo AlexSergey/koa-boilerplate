@@ -1,10 +1,9 @@
 import { compare } from 'bcrypt';
 import { inject, injectable } from 'inversify';
-import { sign, verify } from 'jsonwebtoken';
+import jsonwebtoken from 'jsonwebtoken';
 
-import { APP_DI_TYPES } from 'app/app.di-types';
-import { IConfigService } from 'config/config.service.interface';
-
+import { APP_DI_TYPES } from '../../../app/app.di-types';
+import { IConfigService } from '../../../config/config.service.interface';
 import { IUserJwtPayload } from '../types/jwt.interface';
 
 import { IAuthService } from './auth.service.interface';
@@ -15,7 +14,7 @@ export class AuthService implements IAuthService {
 
   createToken(email: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      sign(
+      jsonwebtoken.sign(
         {
           email,
           iat: Math.floor(Date.now()),
@@ -37,7 +36,7 @@ export class AuthService implements IAuthService {
   }
 
   decodeToken(token: string): IUserJwtPayload {
-    return verify(token, this.configService.get('SECRET')) as IUserJwtPayload;
+    return jsonwebtoken.verify(token, this.configService.get('SECRET')) as IUserJwtPayload;
   }
 
   async validateToken(userPassword: string, password: string): Promise<boolean> {

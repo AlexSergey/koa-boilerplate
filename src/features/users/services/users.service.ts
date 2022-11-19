@@ -1,9 +1,8 @@
 import { UserModel } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 
-import { APP_DI_TYPES } from 'app/app.di-types';
-import { IConfigService } from 'config/config.service.interface';
-
+import { APP_DI_TYPES } from '../../../app/app.di-types';
+import { IConfigService } from '../../../config/config.service.interface';
 import { UserLoginDto } from '../dtos/user-login.dto';
 import { UserRegisterDto } from '../dtos/user-register.dto';
 import { UserEntity } from '../entities/user.entity';
