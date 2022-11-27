@@ -35,6 +35,7 @@ export class CommentNotFoundError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'CommentNotFoundError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = COMMENT_NOT_FOUND.code;

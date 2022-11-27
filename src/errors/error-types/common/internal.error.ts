@@ -7,6 +7,7 @@ export class InternalError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'InternalError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = INTERNAL_ERROR.code;

@@ -35,6 +35,7 @@ export class WrongPasswordError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'WrongPasswordError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = WRONG_PASSWORD.code;

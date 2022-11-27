@@ -24,5 +24,6 @@ export class MulterError extends BaseError implements IError {
       this.message = e.message;
     }
     this.name = 'MulterError';
+    Error.captureStackTrace(this, this.constructor);
   }
 }

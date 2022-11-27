@@ -35,6 +35,7 @@ export class IncorrectAccessError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'IncorrectAccessError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = INCORRECT_ACCESS.code;

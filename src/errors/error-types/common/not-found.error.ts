@@ -7,6 +7,7 @@ export class NotFoundError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'NotFoundError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = NOT_FOUND.code;

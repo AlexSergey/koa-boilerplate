@@ -7,6 +7,7 @@ export class UserNotFoundError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'UserNotFoundError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = USER_NOT_FOUND.code;

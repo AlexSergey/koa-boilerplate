@@ -7,6 +7,7 @@ export class UserAlreadyExistsError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'UserAlreadyExistsError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = USER_ALREADY_EXISTS.code;

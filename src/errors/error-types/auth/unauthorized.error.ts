@@ -35,6 +35,7 @@ export class UnauthorizedError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'UnauthorizedError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = UNAUTHORIZED.code;

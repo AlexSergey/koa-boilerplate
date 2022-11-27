@@ -8,6 +8,7 @@ export class ValidationError extends BaseError implements IError {
     super();
     this.data = data;
     this.name = 'ValidationError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = INVALID_REQUEST_BODY_FORMAT.code;

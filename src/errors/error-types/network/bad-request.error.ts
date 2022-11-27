@@ -7,6 +7,7 @@ export class BadRequestError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'BadRequestError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = BAD_REQUEST.code;

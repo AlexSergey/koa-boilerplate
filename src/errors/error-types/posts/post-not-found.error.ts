@@ -7,6 +7,7 @@ export class PostNotFoundError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'PostNotFoundError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = POST_NOT_FOUND.code;

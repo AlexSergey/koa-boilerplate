@@ -7,6 +7,7 @@ export class BadFileFormatError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'BadFileFormatError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = FILE_FORMAT_ERROR.code;

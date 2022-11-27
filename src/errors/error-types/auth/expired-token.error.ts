@@ -35,6 +35,7 @@ export class ExpiredTokenError extends BaseError implements IError {
   constructor() {
     super();
     this.name = 'ExpiredTokenError';
+    Error.captureStackTrace(this, this.constructor);
   }
 
   public override code = TOKEN_EXPIRED.code;
