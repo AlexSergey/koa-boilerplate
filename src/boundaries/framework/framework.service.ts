@@ -7,6 +7,7 @@ import Router from '@koa/router';
 import { inject, injectable } from 'inversify';
 import Koa from 'koa';
 import bodyParserMiddleware from 'koa-bodyparser';
+import koaHelmet from 'koa-helmet';
 import loggerMiddleware from 'koa-logger';
 import { koaSwagger } from 'koa2-swagger-ui';
 
@@ -56,6 +57,7 @@ export class FrameworkService implements IFrameworkService {
         },
       }),
     );
+    this.framework.use(koaHelmet());
     this.framework.use(errorHandlerMiddleware());
     this.framework.use(
       corsMiddleware(
