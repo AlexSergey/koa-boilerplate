@@ -14,7 +14,6 @@ import { IAuthService } from '../services/auth.service.interface';
 import { IUsersService } from '../services/users.service.interface';
 import { IContextUser } from '../types/context-user.interface';
 import { USERS_DI_TYPES } from '../users.di-types';
-
 import { IUsersController } from './users.controller.interface';
 
 @injectable()
@@ -26,6 +25,19 @@ export class UsersController extends BaseController implements IUsersController 
     @inject(USERS_DI_TYPES.AuthService) private authService: IAuthService,
   ) {
     super();
+  }
+
+  @Get('/info', authGuard)
+  async info(ctx: IContextUser): Promise<void> {
+    const existedUser = await this.usersService.getUserInfo(ctx.user.email);
+    if (!existedUser) {
+      throw new UserNotFoundError();
+    }
+    this.ok(ctx, 'User found', {
+      email: existedUser.email,
+      id: existedUser.id,
+      name: existedUser.name,
+    });
   }
 
   /**
@@ -104,19 +116,6 @@ export class UsersController extends BaseController implements IUsersController 
     this.ok(ctx, 'User created', {
       email: result.email,
       id: result.id,
-    });
-  }
-
-  @Get('/info', authGuard)
-  async info(ctx: IContextUser): Promise<void> {
-    const existedUser = await this.usersService.getUserInfo(ctx.user.email);
-    if (!existedUser) {
-      throw new UserNotFoundError();
-    }
-    this.ok(ctx, 'User found', {
-      email: existedUser.email,
-      id: existedUser.id,
-      name: existedUser.name,
     });
   }
 }

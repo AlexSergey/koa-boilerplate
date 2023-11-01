@@ -1,12 +1,10 @@
-import { createServer, Server } from 'node:http';
-
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
+import { Server, createServer } from 'node:http';
 import enableDestroy from 'server-destroy';
 
 import { APP_DI_TYPES } from '../../app/app.di-types';
 import { IConfigService } from '../../config/config.service.interface';
 import { logger } from '../../logger';
-
 import { IHttpService } from './http.service.interface';
 
 @injectable()

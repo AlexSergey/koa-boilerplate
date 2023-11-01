@@ -8,7 +8,6 @@ import { UserRegisterDto } from '../dtos/user-register.dto';
 import { UserEntity } from '../entities/user.entity';
 import { IUsersRepository } from '../repositories/users.repository.interface';
 import { USERS_DI_TYPES } from '../users.di-types';
-
 import { IUsersService } from './users.service.interface';
 
 @injectable()
@@ -31,6 +30,10 @@ export class UsersService implements IUsersService {
     return await this.usersRepository.create(newUser);
   }
 
+  async getUserInfo(email: string): Promise<UserModel | null> {
+    return await this.usersRepository.findByEmail(email);
+  }
+
   async loginUser({ email, password }: UserLoginDto): Promise<boolean> {
     const user = await this.usersRepository.findByEmail(email);
     if (!user) {
@@ -39,9 +42,5 @@ export class UsersService implements IUsersService {
     const userEntity = new UserEntity(user.email, user.name, user.password);
 
     return await userEntity.comparePassword(password);
-  }
-
-  async getUserInfo(email: string): Promise<UserModel | null> {
-    return await this.usersRepository.findByEmail(email);
   }
 }

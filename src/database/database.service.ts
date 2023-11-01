@@ -2,7 +2,6 @@ import { PrismaClient } from '@prisma/client';
 import { injectable } from 'inversify';
 
 import { logger } from '../logger';
-
 import { IDatabaseService } from './database.service.interface';
 
 @injectable()

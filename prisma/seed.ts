@@ -1,6 +1,6 @@
-import 'reflect-metadata';
 import { plainToInstance } from 'class-transformer';
 import { Container, inject, injectable } from 'inversify';
+import 'reflect-metadata';
 
 import { APP_DI_TYPES } from '../src/app/app.di-types';
 import { ConfigService } from '../src/config/config.service';
@@ -19,12 +19,6 @@ import { logger } from '../src/logger';
 class SeedAdminUser {
   static key = 'seedAdmin';
 
-  constructor(
-    @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
-    @inject(APP_DI_TYPES.DatabaseService) private databaseService: IDatabaseService,
-    @inject(USERS_DI_TYPES.UsersService) private usersService: IUsersService,
-  ) {}
-
   apply = async (): Promise<void> => {
     const name = this.configService.get('SEED_ADMIN_USER_NAME');
     const email = this.configService.get('SEED_ADMIN_USER_EMAIL');
@@ -41,6 +35,12 @@ class SeedAdminUser {
   disconnect = async (): Promise<void> => {
     await this.databaseService.disconnect();
   };
+
+  constructor(
+    @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
+    @inject(APP_DI_TYPES.DatabaseService) private databaseService: IDatabaseService,
+    @inject(USERS_DI_TYPES.UsersService) private usersService: IUsersService,
+  ) {}
 }
 const container = new Container();
 container.bind<IUsersRepository>(USERS_DI_TYPES.UsersRepository).to(UsersRepository);

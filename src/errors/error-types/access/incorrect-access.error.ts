@@ -1,5 +1,6 @@
-import { BaseError } from '../../common/base.error';
 import type { IError } from '../../common/error.interface';
+
+import { BaseError } from '../../common/base.error';
 import { INCORRECT_ACCESS } from '../../constants/messages';
 import { getStatus } from '../../utils/get-status';
 
@@ -32,17 +33,17 @@ import { getStatus } from '../../utils/get-status';
  *                 description: Common error status
  */
 export class IncorrectAccessError extends BaseError implements IError {
+  public override code = INCORRECT_ACCESS.code;
+
+  public override message = INCORRECT_ACCESS.message;
+
+  public override status = getStatus(INCORRECT_ACCESS.statusCode);
+
+  public override statusCode = INCORRECT_ACCESS.statusCode;
+
   constructor() {
     super();
     this.name = 'IncorrectAccessError';
     Error.captureStackTrace(this, this.constructor);
   }
-
-  public override code = INCORRECT_ACCESS.code;
-
-  public override statusCode = INCORRECT_ACCESS.statusCode;
-
-  public override message = INCORRECT_ACCESS.message;
-
-  public override status = getStatus(INCORRECT_ACCESS.statusCode);
 }

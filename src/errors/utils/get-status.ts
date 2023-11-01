@@ -1,6 +1,6 @@
 export enum Statuses {
-  fail = 'fail',
   error = 'error',
+  fail = 'fail',
   success = 'success',
 }
 

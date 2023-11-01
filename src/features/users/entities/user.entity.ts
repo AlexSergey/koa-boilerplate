@@ -9,6 +9,14 @@ export class UserEntity {
     }
   }
 
+  public async comparePassword(password: string): Promise<boolean> {
+    return await compare(password, this._password);
+  }
+
+  public async setPassword(password: string, salt: number): Promise<void> {
+    this._password = await hash(password, salt);
+  }
+
   get email(): string {
     return this._email;
   }
@@ -19,13 +27,5 @@ export class UserEntity {
 
   get password(): string {
     return this._password;
-  }
-
-  public async setPassword(password: string, salt: number): Promise<void> {
-    this._password = await hash(password, salt);
-  }
-
-  public async comparePassword(password: string): Promise<boolean> {
-    return await compare(password, this._password);
   }
 }

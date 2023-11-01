@@ -1,5 +1,5 @@
-import 'reflect-metadata';
 import { Container } from 'inversify';
+import 'reflect-metadata';
 
 import { AppComponent } from './app/app.component';
 import { appDiContainer } from './app/app.di-container';

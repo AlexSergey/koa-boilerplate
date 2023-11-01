@@ -6,7 +6,7 @@ import { UserRegisterDto } from '../dtos/user-register.dto';
 export interface IUsersService {
   createUser(dto: UserRegisterDto): Promise<UserModel | null>;
 
-  loginUser(dto: UserLoginDto): Promise<boolean>;
-
   getUserInfo(user: string): Promise<UserModel | null>;
+
+  loginUser(dto: UserLoginDto): Promise<boolean>;
 }

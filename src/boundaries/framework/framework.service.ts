@@ -1,7 +1,3 @@
-import { readFileSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
 import corsMiddleware from '@koa/cors';
 import Router from '@koa/router';
 import { inject, injectable } from 'inversify';
@@ -10,17 +6,19 @@ import bodyParserMiddleware from 'koa-bodyparser';
 import koaHelmet from 'koa-helmet';
 import loggerMiddleware from 'koa-logger';
 import { koaSwagger } from 'koa2-swagger-ui';
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { APP_DI_TYPES } from '../../app/app.di-types';
 import { IConfigService } from '../../config/config.service.interface';
-import { errorHandlerMiddleware, ValidationError } from '../../errors';
+import { ValidationError, errorHandlerMiddleware } from '../../errors';
 import { IAuthService } from '../../features/users/services/auth.service.interface';
 import { IUsersService } from '../../features/users/services/users.service.interface';
 import { USERS_DI_TYPES } from '../../features/users/users.di-types';
-import { bind, RoutesConfigType } from '../../libs/router';
+import { RoutesConfigType, bind } from '../../libs/router';
 import { logger } from '../../logger';
 import { IHttpService } from '../http/http.service.interface';
-
 import { IFrameworkService } from './framework.service.interface';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -47,6 +45,16 @@ export class FrameworkService implements IFrameworkService {
       };
       await next();
     });
+  }
+
+  private setupSwagger(): void {
+    this.router.get(
+      '/docs',
+      koaSwagger({
+        hideTopbar: true,
+        swaggerOptions: { spec: openapiSpec },
+      }),
+    );
   }
 
   private useMiddlewares(): void {
@@ -93,16 +101,6 @@ export class FrameworkService implements IFrameworkService {
       bind(this.router, controllers, routesConfig);
       this.framework.use(this.router.routes()).use(this.router.allowedMethods());
     }
-  }
-
-  private setupSwagger(): void {
-    this.router.get(
-      '/docs',
-      koaSwagger({
-        hideTopbar: true,
-        swaggerOptions: { spec: openapiSpec },
-      }),
-    );
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

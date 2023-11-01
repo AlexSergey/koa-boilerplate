@@ -1,4 +1,4 @@
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 
 import { IFrameworkService } from '../boundaries/framework/framework.service.interface';
 import { IHttpService } from '../boundaries/http/http.service.interface';
@@ -6,7 +6,6 @@ import { IConfigService } from '../config/config.service.interface';
 import { IDatabaseService } from '../database/database.service.interface';
 import { IUsersController } from '../features/users/controllers/users.controller.interface';
 import { USERS_DI_TYPES } from '../features/users/users.di-types';
-
 import { APP_DI_TYPES } from './app.di-types';
 
 @injectable()

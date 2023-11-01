@@ -1,5 +1,6 @@
-import { BaseError } from '../../common/base.error';
 import type { IError } from '../../common/error.interface';
+
+import { BaseError } from '../../common/base.error';
 import { WRONG_PASSWORD } from '../../constants/messages';
 import { getStatus } from '../../utils/get-status';
 
@@ -32,17 +33,17 @@ import { getStatus } from '../../utils/get-status';
  *                 description: Common error status
  */
 export class WrongPasswordError extends BaseError implements IError {
+  public override code = WRONG_PASSWORD.code;
+
+  public override message = WRONG_PASSWORD.message;
+
+  public override status = getStatus(WRONG_PASSWORD.statusCode);
+
+  public override statusCode = WRONG_PASSWORD.statusCode;
+
   constructor() {
     super();
     this.name = 'WrongPasswordError';
     Error.captureStackTrace(this, this.constructor);
   }
-
-  public override code = WRONG_PASSWORD.code;
-
-  public override statusCode = WRONG_PASSWORD.statusCode;
-
-  public override message = WRONG_PASSWORD.message;
-
-  public override status = getStatus(WRONG_PASSWORD.statusCode);
 }

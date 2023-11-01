@@ -5,7 +5,7 @@ export interface IConfigService {
 
   getEnv: () => EnvType;
 
-  isDevelopment: () => boolean;
-
   getJwtExpiresIn: () => string;
+
+  isDevelopment: () => boolean;
 }

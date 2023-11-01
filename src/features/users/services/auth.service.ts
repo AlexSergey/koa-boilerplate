@@ -5,7 +5,6 @@ import jsonwebtoken from 'jsonwebtoken';
 import { APP_DI_TYPES } from '../../../app/app.di-types';
 import { IConfigService } from '../../../config/config.service.interface';
 import { IUserJwtPayload } from '../types/jwt.interface';
-
 import { IAuthService } from './auth.service.interface';
 
 @injectable()

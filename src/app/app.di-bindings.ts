@@ -8,7 +8,6 @@ import { ConfigService } from '../config/config.service';
 import { IConfigService } from '../config/config.service.interface';
 import { DatabaseService } from '../database/database.service';
 import { IDatabaseService } from '../database/database.service.interface';
-
 import { AppComponent } from './app.component';
 import { APP_DI_TYPES } from './app.di-types';
 

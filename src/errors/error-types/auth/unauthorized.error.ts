@@ -1,5 +1,6 @@
-import { BaseError } from '../../common/base.error';
 import type { IError } from '../../common/error.interface';
+
+import { BaseError } from '../../common/base.error';
 import { UNAUTHORIZED } from '../../constants/messages';
 import { getStatus } from '../../utils/get-status';
 
@@ -32,17 +33,17 @@ import { getStatus } from '../../utils/get-status';
  *                 description: Common error status
  */
 export class UnauthorizedError extends BaseError implements IError {
+  public override code = UNAUTHORIZED.code;
+
+  public override message = UNAUTHORIZED.message;
+
+  public override status = getStatus(UNAUTHORIZED.statusCode);
+
+  public override statusCode = UNAUTHORIZED.statusCode;
+
   constructor() {
     super();
     this.name = 'UnauthorizedError';
     Error.captureStackTrace(this, this.constructor);
   }
-
-  public override code = UNAUTHORIZED.code;
-
-  public override statusCode = UNAUTHORIZED.statusCode;
-
-  public override message = UNAUTHORIZED.message;
-
-  public override status = getStatus(UNAUTHORIZED.statusCode);
 }

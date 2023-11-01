@@ -13,6 +13,10 @@ export class RouterStore {
     return RouterStore.instance;
   }
 
+  public get(): RouteType[] {
+    return this.routes;
+  }
+
   public set(route: RouteType): void {
     const existed = this.routes.find((r) => r.url === route.url && r.method === route.method);
     if (existed) {
@@ -22,9 +26,5 @@ export class RouterStore {
       return;
     }
     this.routes.push(route);
-  }
-
-  public get(): RouteType[] {
-    return this.routes;
   }
 }

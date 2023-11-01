@@ -8,7 +8,6 @@ import { IConfigService } from '../../../config/config.service.interface';
 import { UserEntity } from '../entities/user.entity';
 import { IUsersRepository } from '../repositories/users.repository.interface';
 import { USERS_DI_TYPES } from '../users.di-types';
-
 import { UsersService } from './users.service';
 import { IUsersService } from './users.service.interface';
 

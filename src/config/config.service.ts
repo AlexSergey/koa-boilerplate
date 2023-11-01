@@ -1,12 +1,10 @@
-import { resolve, dirname } from 'node:path';
+import { DotenvConfigOutput, DotenvParseOutput, config } from 'dotenv';
+import { injectable } from 'inversify';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { config, DotenvConfigOutput, DotenvParseOutput } from 'dotenv';
-import { injectable } from 'inversify';
-
 import { logger } from '../logger';
-
-import { IConfigService, EnvType } from './config.service.interface';
+import { EnvType, IConfigService } from './config.service.interface';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -54,11 +52,11 @@ export class ConfigService implements IConfigService {
     return env;
   }
 
-  isDevelopment(): boolean {
-    return process.env.NODE_ENV === 'development';
-  }
-
   getJwtExpiresIn(): string {
     return this.jwtExpiresIn;
+  }
+
+  isDevelopment(): boolean {
+    return process.env.NODE_ENV === 'development';
   }
 }
