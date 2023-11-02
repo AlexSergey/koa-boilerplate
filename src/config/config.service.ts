@@ -43,13 +43,12 @@ export class ConfigService implements IConfigService {
 
   getEnv(): EnvType {
     const envs = Object.keys(pathToEnvFiles);
-    const env = (
+
+    return (
       typeof process.env.NODE_ENV === 'string' && envs.includes(process.env.NODE_ENV)
         ? process.env.NODE_ENV
         : 'development'
     ) as EnvType;
-
-    return env;
   }
 
   getJwtExpiresIn(): string {
