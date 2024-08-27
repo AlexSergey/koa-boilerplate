@@ -17,7 +17,7 @@ import { logger } from '../src/logger';
 
 @injectable()
 class SeedAdminUser {
-  static key = 'seedAdmin';
+  static readonly key = 'seedAdmin';
 
   apply = async (): Promise<void> => {
     const name = this.configService.get('SEED_ADMIN_USER_NAME');
@@ -55,7 +55,8 @@ seedAdmin
   .catch((e) => {
     // eslint-disable-next-line no-console
     console.log(e);
-    // eslint-disable-next-line no-process-exit
+
     process.exit(1);
   })
+  // eslint-disable-next-line sonarjs/no-misused-promises
   .finally(seedAdmin.disconnect);

@@ -12,11 +12,11 @@ import { fileURLToPath } from 'node:url';
 
 import { APP_DI_TYPES } from '../../app/app.di-types';
 import { IConfigService } from '../../config/config.service.interface';
-import { ValidationError, errorHandlerMiddleware } from '../../errors';
+import { errorHandlerMiddleware, ValidationError } from '../../errors';
 import { IAuthService } from '../../features/users/services/auth.service.interface';
 import { IUsersService } from '../../features/users/services/users.service.interface';
 import { USERS_DI_TYPES } from '../../features/users/users.di-types';
-import { RoutesConfigType, bind } from '../../libs/router';
+import { bind, IRoutesConfigType } from '../../libs/router';
 import { logger } from '../../logger';
 import { IHttpService } from '../http/http.service.interface';
 import { IFrameworkService } from './framework.service.interface';
@@ -96,7 +96,7 @@ export class FrameworkService implements IFrameworkService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private useRoutes(controllers?: any[], routesConfig?: RoutesConfigType): void {
+  private useRoutes(controllers?: any[], routesConfig?: IRoutesConfigType): void {
     if (Array.isArray(controllers)) {
       bind(this.router, controllers, routesConfig);
       this.framework.use(this.router.routes()).use(this.router.allowedMethods());
@@ -104,7 +104,7 @@ export class FrameworkService implements IFrameworkService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  bind(httpService: IHttpService, controllers?: any[], routesConfig?: RoutesConfigType): void {
+  bind(httpService: IHttpService, controllers?: any[], routesConfig?: IRoutesConfigType): void {
     this.injectContext();
     this.useMiddlewares();
     this.setupSwagger();

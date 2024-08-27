@@ -1,9 +1,9 @@
-import { RouteType } from './types';
+import { IRouteType } from './types';
 
 export class RouterStore {
   private static instance: RouterStore;
 
-  private routes: RouteType[] = [];
+  private routes: IRouteType[] = [];
 
   public static getInstance(): RouterStore {
     if (!RouterStore.instance) {
@@ -13,11 +13,11 @@ export class RouterStore {
     return RouterStore.instance;
   }
 
-  public get(): RouteType[] {
+  public get(): IRouteType[] {
     return this.routes;
   }
 
-  public set(route: RouteType): void {
+  public set(route: IRouteType): void {
     const existed = this.routes.find((r) => r.url === route.url && r.method === route.method);
     if (existed) {
       // eslint-disable-next-line no-console

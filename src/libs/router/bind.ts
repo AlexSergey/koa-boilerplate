@@ -2,10 +2,10 @@ import Router from '@koa/router';
 import urlJoin from 'proper-url-join';
 
 import { RouterStore } from './router.store';
-import { RoutesConfigType } from './types';
+import { IRoutesConfigType } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const bind = (router: Router, controllers: any[], config?: RoutesConfigType): void => {
+export const bind = (router: Router, controllers: any[], config?: IRoutesConfigType): void => {
   const routerStore = RouterStore.getInstance();
   const routes = routerStore.get();
 

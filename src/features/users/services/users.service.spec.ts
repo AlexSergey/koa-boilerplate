@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { jest } from '@jest/globals';
 import { UserModel } from '@prisma/client';
 import { Container } from 'inversify';
@@ -58,6 +57,7 @@ describe('Users service', () => {
     const createdUser = await usersService.createUser({
       email: 'test@mail.com',
       name: 'John',
+      // eslint-disable-next-line sonarjs/no-hardcoded-credentials
       password: '123',
     });
 

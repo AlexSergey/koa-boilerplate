@@ -2,7 +2,7 @@ import { DefaultContext, DefaultState, Middleware } from 'koa';
 
 import { ROUTE_METADATA_KEY } from './constants';
 import { METHODS } from './methods';
-import { RouteType } from './types';
+import { IRouteType } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DecoratorType = (target: any, propertyKey: string, descriptor: PropertyDescriptor) => void;
@@ -15,9 +15,9 @@ const factory =
   ): DecoratorType => {
     return function decorator(target, propertyKey, descriptor) {
       const routeUrl = typeof url === 'string' ? url : '/';
-      const route: RouteType<StateT, ContextT>[] = Reflect.getOwnMetadata(ROUTE_METADATA_KEY, target) || [];
+      const route: IRouteType<StateT, ContextT>[] = Reflect.getOwnMetadata(ROUTE_METADATA_KEY, target) || [];
       const callback = descriptor.value;
-      const options: RouteType<StateT, ContextT> = {
+      const options: IRouteType<StateT, ContextT> = {
         callback,
         method,
         url: routeUrl,

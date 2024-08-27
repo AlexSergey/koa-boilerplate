@@ -16,6 +16,8 @@ export const authGuard: Middleware<DefaultState, IContextUser> = async (ctx, nex
     const pureToken = token.replace('Bearer ', '');
     currentUser = ctx.services.authService.decodeToken(pureToken);
   } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
     throw new ExpiredTokenError();
   }
 

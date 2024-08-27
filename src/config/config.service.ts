@@ -1,4 +1,4 @@
-import { DotenvConfigOutput, DotenvParseOutput, config } from 'dotenv';
+import { config, DotenvConfigOutput, DotenvParseOutput } from 'dotenv';
 import { injectable } from 'inversify';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';

@@ -17,4 +17,4 @@ const type =
     ? TYPES[process.env.NODE_ENV as keyof typeof TYPES]
     : TYPES.development;
 
-export const logger: Logger<{}> = new Logger({ type });
+export const logger = new Logger<Record<string, string>>({ type });

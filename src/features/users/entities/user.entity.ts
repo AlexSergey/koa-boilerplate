@@ -3,7 +3,11 @@ import { compare, hash } from 'bcrypt';
 export class UserEntity {
   private _password: string;
 
-  constructor(private readonly _email: string, private readonly _name: string, passwordHash?: string) {
+  constructor(
+    private readonly _email: string,
+    private readonly _name: string,
+    passwordHash?: string,
+  ) {
     if (passwordHash) {
       this._password = passwordHash;
     }

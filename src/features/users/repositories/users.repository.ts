@@ -20,7 +20,7 @@ export class UsersRepository implements IUsersRepository {
     });
   }
 
-  async findByEmail(email: string): Promise<UserModel | null> {
+  async findByEmail(email: string): Promise<null | UserModel> {
     return this.databaseService.client.userModel.findFirst({
       where: {
         email,

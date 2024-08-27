@@ -1,7 +1,5 @@
-import { writeFileSync } from 'node:fs';
-
 import { config, DotenvConfigOutput, DotenvParseOutput } from 'dotenv';
-// eslint-disable-next-line import/no-extraneous-dependencies
+import { writeFileSync } from 'node:fs';
 import swaggerJsdoc from 'swagger-jsdoc';
 
 import { name, version } from './package.json';

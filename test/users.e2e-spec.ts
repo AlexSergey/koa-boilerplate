@@ -20,6 +20,7 @@ describe('Users e2e', () => {
     const res = await request.post('/api/users/register').send({
       email: 'test_user@test.com',
       name: 'test_user',
+      // eslint-disable-next-line sonarjs/no-hardcoded-credentials
       password: 'test_user_password',
     });
 
@@ -30,6 +31,7 @@ describe('Users e2e', () => {
     const res = await request.post('/api/users/register').send({
       email: 'test_user2@test.com',
       name: 'test_user2',
+      // eslint-disable-next-line sonarjs/no-hardcoded-credentials
       password: '123',
     });
 
