@@ -58,5 +58,4 @@ seedAdmin
 
     process.exit(1);
   })
-  // eslint-disable-next-line sonarjs/no-misused-promises
   .finally(seedAdmin.disconnect);

@@ -57,7 +57,6 @@ describe('Users service', () => {
     const createdUser = await usersService.createUser({
       email: 'test@mail.com',
       name: 'John',
-      // eslint-disable-next-line sonarjs/no-hardcoded-credentials
       password: '123',
     });
 
