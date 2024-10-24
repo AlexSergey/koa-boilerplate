@@ -87,7 +87,6 @@ const customTypescriptConfig = {
       'error',
       {
         format: ['UPPER_CASE', 'StrictPascalCase'],
-        prefix: ['I'],
         selector: 'interface',
       },
     ],
