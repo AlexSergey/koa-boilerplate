@@ -3,38 +3,38 @@ import { UserModel } from '@prisma/client';
 import { Container } from 'inversify';
 
 import { APP_DI_TYPES } from '../../../app/app.di-types';
-import { IConfigService } from '../../../config/config.service.interface';
+import { ConfigServiceInterface } from '../../../config/config.service.interface';
 import { UserEntity } from '../entities/user.entity';
-import { IUsersRepository } from '../repositories/users.repository.interface';
+import { UsersRepositoryInterface } from '../repositories/users.repository.interface';
 import { USERS_DI_TYPES } from '../users.di-types';
 import { UsersService } from './users.service';
-import { IUsersService } from './users.service.interface';
+import { UsersServiceInterface } from './users.service.interface';
 
 const ConfigServiceMock = {
   get: jest.fn(),
   getEnv: jest.fn(),
   getJwtExpiresIn: jest.fn(),
   isDevelopment: jest.fn(),
-} as IConfigService;
+} as ConfigServiceInterface;
 
 const UsersRepositoryMock = {
   create: jest.fn(),
   findByEmail: jest.fn(),
-} as IUsersRepository;
+} as UsersRepositoryInterface;
 
 const container = new Container();
-let configService: IConfigService;
-let usersRepository: IUsersRepository;
-let usersService: IUsersService;
+let configService: ConfigServiceInterface;
+let usersRepository: UsersRepositoryInterface;
+let usersService: UsersServiceInterface;
 
 beforeAll(() => {
-  container.bind<IUsersService>(USERS_DI_TYPES.UsersService).to(UsersService);
-  container.bind<IConfigService>(APP_DI_TYPES.ConfigService).toConstantValue(ConfigServiceMock);
-  container.bind<IUsersRepository>(USERS_DI_TYPES.UsersRepository).toConstantValue(UsersRepositoryMock);
+  container.bind<UsersServiceInterface>(USERS_DI_TYPES.UsersService).to(UsersService);
+  container.bind<ConfigServiceInterface>(APP_DI_TYPES.ConfigService).toConstantValue(ConfigServiceMock);
+  container.bind<UsersRepositoryInterface>(USERS_DI_TYPES.UsersRepository).toConstantValue(UsersRepositoryMock);
 
-  configService = container.get<IConfigService>(APP_DI_TYPES.ConfigService);
-  usersRepository = container.get<IUsersRepository>(USERS_DI_TYPES.UsersRepository);
-  usersService = container.get<IUsersService>(USERS_DI_TYPES.UsersService);
+  configService = container.get<ConfigServiceInterface>(APP_DI_TYPES.ConfigService);
+  usersRepository = container.get<UsersRepositoryInterface>(USERS_DI_TYPES.UsersRepository);
+  usersService = container.get<UsersServiceInterface>(USERS_DI_TYPES.UsersService);
 });
 
 describe('Users service', () => {

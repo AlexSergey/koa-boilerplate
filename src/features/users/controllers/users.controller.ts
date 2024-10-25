@@ -3,32 +3,32 @@ import { DefaultContext } from 'koa';
 
 import { APP_DI_TYPES } from '../../../app/app.di-types';
 import { BaseController } from '../../../common';
-import { IConfigService } from '../../../config/config.service.interface';
+import { ConfigServiceInterface } from '../../../config/config.service.interface';
 import { UnauthorizedError, UserAlreadyExistsError, UserNotFoundError } from '../../../errors';
 import { authGuard } from '../../../guards/auth.guard';
 import { Controller, Get, Post } from '../../../libs/router';
 import { validateMiddleware } from '../../../middlewares/validate.middleware';
 import { UserLoginDto } from '../dtos/user-login.dto';
 import { UserRegisterDto } from '../dtos/user-register.dto';
-import { IAuthService } from '../services/auth.service.interface';
-import { IUsersService } from '../services/users.service.interface';
-import { IContextUser } from '../types/context-user.interface';
+import { AuthServiceInterface } from '../services/auth.service.interface';
+import { UsersServiceInterface } from '../services/users.service.interface';
+import { ContextUser } from '../types/context-user.interface';
 import { USERS_DI_TYPES } from '../users.di-types';
-import { IUsersController } from './users.controller.interface';
+import { UsersControllerInterface } from './users.controller.interface';
 
 @injectable()
 @Controller('users')
-export class UsersController extends BaseController implements IUsersController {
+export class UsersController extends BaseController implements UsersControllerInterface {
   constructor(
-    @inject(USERS_DI_TYPES.UsersService) private usersService: IUsersService,
-    @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
-    @inject(USERS_DI_TYPES.AuthService) private authService: IAuthService,
+    @inject(USERS_DI_TYPES.UsersService) private usersService: UsersServiceInterface,
+    @inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface,
+    @inject(USERS_DI_TYPES.AuthService) private authService: AuthServiceInterface,
   ) {
     super();
   }
 
   @Get('/info', authGuard)
-  async info(ctx: IContextUser): Promise<void> {
+  async info(ctx: ContextUser): Promise<void> {
     const existedUser = await this.usersService.getUserInfo(ctx.user.email);
     if (!existedUser) {
       throw new UserNotFoundError();

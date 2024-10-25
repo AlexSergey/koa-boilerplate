@@ -2,10 +2,10 @@ import { PrismaClient } from '@prisma/client';
 import { injectable } from 'inversify';
 
 import { logger } from '../logger';
-import { IDatabaseService } from './database.service.interface';
+import { DatabaseServiceInterface } from './database.service.interface';
 
 @injectable()
-export class DatabaseService implements IDatabaseService {
+export class DatabaseService implements DatabaseServiceInterface {
   client: PrismaClient;
 
   constructor() {

@@ -3,12 +3,12 @@ import urlJoin from 'proper-url-join';
 
 import { ROUTE_METADATA_KEY } from './constants';
 import { RouterStore } from './router.store';
-import { IRouteType } from './types';
+import { RouteType } from './types';
 
 export const Controller = (url?: string, middlewares?: Middleware | Middleware[]) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   return (constructor: Function): void => {
-    const routes: IRouteType[] = Reflect.getMetadata(ROUTE_METADATA_KEY, constructor.prototype);
+    const routes: RouteType[] = Reflect.getMetadata(ROUTE_METADATA_KEY, constructor.prototype);
     const routerStore = RouterStore.getInstance();
 
     routes.forEach((route) => {
@@ -18,7 +18,7 @@ export const Controller = (url?: string, middlewares?: Middleware | Middleware[]
       const mixedMiddlewares = [...controllerExistedMiddlewares, ...routeExistedMiddlewares];
       const finalMiddlewares = mixedMiddlewares.filter((middleware) => typeof middleware === 'function');
 
-      const options: IRouteType = {
+      const options: RouteType = {
         callback: route.callback,
         controller: constructor,
         method: route.method,

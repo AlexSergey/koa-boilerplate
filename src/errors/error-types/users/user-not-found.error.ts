@@ -1,10 +1,10 @@
-import type { IError } from '../../common/error.interface';
+import type { ErrorInterface } from '../../common/error.interface';
 
 import { BaseError } from '../../common/base.error';
 import { USER_NOT_FOUND } from '../../constants/messages';
 import { getStatus } from '../../utils/get-status';
 
-export class UserNotFoundError extends BaseError implements IError {
+export class UserNotFoundError extends BaseError implements ErrorInterface {
   public override code = USER_NOT_FOUND.code;
 
   public override message = USER_NOT_FOUND.message;

@@ -11,15 +11,15 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { APP_DI_TYPES } from '../../app/app.di-types';
-import { IConfigService } from '../../config/config.service.interface';
+import { ConfigServiceInterface } from '../../config/config.service.interface';
 import { errorHandlerMiddleware, ValidationError } from '../../errors';
-import { IAuthService } from '../../features/users/services/auth.service.interface';
-import { IUsersService } from '../../features/users/services/users.service.interface';
+import { AuthServiceInterface } from '../../features/users/services/auth.service.interface';
+import { UsersServiceInterface } from '../../features/users/services/users.service.interface';
 import { USERS_DI_TYPES } from '../../features/users/users.di-types';
-import { bind, IRoutesConfigType } from '../../libs/router';
+import { bind, RoutesConfigType } from '../../libs/router';
 import { logger } from '../../logger';
-import { IHttpService } from '../http/http.service.interface';
-import { IFrameworkService } from './framework.service.interface';
+import { HttpServiceInterface } from '../http/http.service.interface';
+import { FrameworkServiceInterface } from './framework.service.interface';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -28,11 +28,11 @@ const __dirname = dirname(__filename);
 const openapiSpec = JSON.parse(readFileSync(resolve(__dirname, '../../openapi.json'), 'utf8'));
 
 @injectable()
-export class FrameworkService implements IFrameworkService {
+export class FrameworkService implements FrameworkServiceInterface {
   constructor(
-    @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
-    @inject(USERS_DI_TYPES.UsersService) private usersService: IUsersService,
-    @inject(USERS_DI_TYPES.AuthService) private authService: IAuthService,
+    @inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface,
+    @inject(USERS_DI_TYPES.UsersService) private usersService: UsersServiceInterface,
+    @inject(USERS_DI_TYPES.AuthService) private authService: AuthServiceInterface,
     private framework: Koa = new Koa(),
     private router: Router = new Router(),
   ) {}
@@ -96,7 +96,7 @@ export class FrameworkService implements IFrameworkService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private useRoutes(controllers?: any[], routesConfig?: IRoutesConfigType): void {
+  private useRoutes(controllers?: any[], routesConfig?: RoutesConfigType): void {
     if (Array.isArray(controllers)) {
       bind(this.router, controllers, routesConfig);
       this.framework.use(this.router.routes()).use(this.router.allowedMethods());
@@ -104,7 +104,7 @@ export class FrameworkService implements IFrameworkService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  bind(httpService: IHttpService, controllers?: any[], routesConfig?: IRoutesConfigType): void {
+  bind(httpService: HttpServiceInterface, controllers?: any[], routesConfig?: RoutesConfigType): void {
     this.injectContext();
     this.useMiddlewares();
     this.setupSwagger();

@@ -2,19 +2,19 @@ import { UserModel } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 
 import { APP_DI_TYPES } from '../../../app/app.di-types';
-import { IConfigService } from '../../../config/config.service.interface';
+import { ConfigServiceInterface } from '../../../config/config.service.interface';
 import { UserLoginDto } from '../dtos/user-login.dto';
 import { UserRegisterDto } from '../dtos/user-register.dto';
 import { UserEntity } from '../entities/user.entity';
-import { IUsersRepository } from '../repositories/users.repository.interface';
+import { UsersRepositoryInterface } from '../repositories/users.repository.interface';
 import { USERS_DI_TYPES } from '../users.di-types';
-import { IUsersService } from './users.service.interface';
+import { UsersServiceInterface } from './users.service.interface';
 
 @injectable()
-export class UsersService implements IUsersService {
+export class UsersService implements UsersServiceInterface {
   constructor(
-    @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
-    @inject(USERS_DI_TYPES.UsersRepository) private usersRepository: IUsersRepository,
+    @inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface,
+    @inject(USERS_DI_TYPES.UsersRepository) private usersRepository: UsersRepositoryInterface,
   ) {}
 
   async createUser({ email, name, password }: UserRegisterDto): Promise<null | UserModel> {

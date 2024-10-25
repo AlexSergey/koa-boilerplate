@@ -1,10 +1,10 @@
-import type { IError } from '../../common/error.interface';
+import type { ErrorInterface } from '../../common/error.interface';
 
 import { BaseError } from '../../common/base.error';
 import { INTERNAL_ERROR } from '../../constants/messages';
 import { getStatus } from '../../utils/get-status';
 
-export class InternalError extends BaseError implements IError {
+export class InternalError extends BaseError implements ErrorInterface {
   public override code = INTERNAL_ERROR.code;
 
   public override message = INTERNAL_ERROR.message;

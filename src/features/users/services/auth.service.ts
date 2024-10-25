@@ -3,13 +3,13 @@ import { inject, injectable } from 'inversify';
 import jsonwebtoken from 'jsonwebtoken';
 
 import { APP_DI_TYPES } from '../../../app/app.di-types';
-import { IConfigService } from '../../../config/config.service.interface';
-import { IUserJwtPayload } from '../types/jwt.interface';
-import { IAuthService } from './auth.service.interface';
+import { ConfigServiceInterface } from '../../../config/config.service.interface';
+import { UserJwtPayload } from '../types/jwt.interface';
+import { AuthServiceInterface } from './auth.service.interface';
 
 @injectable()
-export class AuthService implements IAuthService {
-  constructor(@inject(APP_DI_TYPES.ConfigService) private configService: IConfigService) {}
+export class AuthService implements AuthServiceInterface {
+  constructor(@inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface) {}
 
   createToken(email: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
@@ -34,8 +34,8 @@ export class AuthService implements IAuthService {
     });
   }
 
-  decodeToken(token: string): IUserJwtPayload {
-    return jsonwebtoken.verify(token, this.configService.get('SECRET')) as IUserJwtPayload;
+  decodeToken(token: string): UserJwtPayload {
+    return jsonwebtoken.verify(token, this.configService.get('SECRET')) as UserJwtPayload;
   }
 
   async validateToken(userPassword: string, password: string): Promise<boolean> {

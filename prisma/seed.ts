@@ -4,14 +4,14 @@ import 'reflect-metadata';
 
 import { APP_DI_TYPES } from '../src/app/app.di-types';
 import { ConfigService } from '../src/config/config.service';
-import { IConfigService } from '../src/config/config.service.interface';
+import { ConfigServiceInterface } from '../src/config/config.service.interface';
 import { DatabaseService } from '../src/database/database.service';
-import { IDatabaseService } from '../src/database/database.service.interface';
+import { DatabaseServiceInterface } from '../src/database/database.service.interface';
 import { UserRegisterDto } from '../src/features/users/dtos/user-register.dto';
 import { UsersRepository } from '../src/features/users/repositories/users.repository';
-import { IUsersRepository } from '../src/features/users/repositories/users.repository.interface';
+import { UsersRepositoryInterface } from '../src/features/users/repositories/users.repository.interface';
 import { UsersService } from '../src/features/users/services/users.service';
-import { IUsersService } from '../src/features/users/services/users.service.interface';
+import { UsersServiceInterface } from '../src/features/users/services/users.service.interface';
 import { USERS_DI_TYPES } from '../src/features/users/users.di-types';
 import { logger } from '../src/logger';
 
@@ -37,16 +37,16 @@ class SeedAdminUser {
   };
 
   constructor(
-    @inject(APP_DI_TYPES.ConfigService) private configService: IConfigService,
-    @inject(APP_DI_TYPES.DatabaseService) private databaseService: IDatabaseService,
-    @inject(USERS_DI_TYPES.UsersService) private usersService: IUsersService,
+    @inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface,
+    @inject(APP_DI_TYPES.DatabaseService) private databaseService: DatabaseServiceInterface,
+    @inject(USERS_DI_TYPES.UsersService) private usersService: UsersServiceInterface,
   ) {}
 }
 const container = new Container();
-container.bind<IUsersRepository>(USERS_DI_TYPES.UsersRepository).to(UsersRepository);
-container.bind<IUsersService>(USERS_DI_TYPES.UsersService).to(UsersService);
-container.bind<IDatabaseService>(APP_DI_TYPES.DatabaseService).to(DatabaseService);
-container.bind<IConfigService>(APP_DI_TYPES.ConfigService).to(ConfigService);
+container.bind<UsersRepositoryInterface>(USERS_DI_TYPES.UsersRepository).to(UsersRepository);
+container.bind<UsersServiceInterface>(USERS_DI_TYPES.UsersService).to(UsersService);
+container.bind<DatabaseServiceInterface>(APP_DI_TYPES.DatabaseService).to(DatabaseService);
+container.bind<ConfigServiceInterface>(APP_DI_TYPES.ConfigService).to(ConfigService);
 container.bind<SeedAdminUser>(SeedAdminUser.key).to(SeedAdminUser);
 
 const seedAdmin = container.get<SeedAdminUser>(SeedAdminUser.key);

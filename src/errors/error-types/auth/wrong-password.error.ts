@@ -1,4 +1,4 @@
-import type { IError } from '../../common/error.interface';
+import type { ErrorInterface } from '../../common/error.interface';
 
 import { BaseError } from '../../common/base.error';
 import { WRONG_PASSWORD } from '../../constants/messages';
@@ -32,7 +32,7 @@ import { getStatus } from '../../utils/get-status';
  *                 default: "fail"
  *                 description: Common error status
  */
-export class WrongPasswordError extends BaseError implements IError {
+export class WrongPasswordError extends BaseError implements ErrorInterface {
   public override code = WRONG_PASSWORD.code;
 
   public override message = WRONG_PASSWORD.message;

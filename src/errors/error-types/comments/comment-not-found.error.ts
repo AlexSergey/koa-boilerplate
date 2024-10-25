@@ -1,4 +1,4 @@
-import type { IError } from '../../common/error.interface';
+import type { ErrorInterface } from '../../common/error.interface';
 
 import { BaseError } from '../../common/base.error';
 import { COMMENT_NOT_FOUND } from '../../constants/messages';
@@ -32,7 +32,7 @@ import { getStatus } from '../../utils/get-status';
  *                 default: "fail"
  *                 description: Common error status
  */
-export class CommentNotFoundError extends BaseError implements IError {
+export class CommentNotFoundError extends BaseError implements ErrorInterface {
   public override code = COMMENT_NOT_FOUND.code;
 
   public override message = COMMENT_NOT_FOUND.message;

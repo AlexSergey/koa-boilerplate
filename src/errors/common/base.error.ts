@@ -1,7 +1,7 @@
 import { Statuses } from '../utils/get-status';
-import { IError } from './error.interface';
+import { ErrorInterface } from './error.interface';
 
-interface IPureErrorType {
+interface PureErrorType {
   code: string;
   data?: unknown;
   message: string;
@@ -9,7 +9,7 @@ interface IPureErrorType {
   statusCode: number;
 }
 
-export class BaseError extends Error implements IError {
+export class BaseError extends Error implements ErrorInterface {
   public code: string;
 
   public data?: unknown;
@@ -25,8 +25,8 @@ export class BaseError extends Error implements IError {
     this.name = 'BaseError';
   }
 
-  get(): IPureErrorType {
-    const err: IPureErrorType = {
+  get(): PureErrorType {
+    const err: PureErrorType = {
       code: this.code,
       message: this.message,
       status: this.status,

@@ -3,15 +3,15 @@ import { createServer, Server } from 'node:http';
 import enableDestroy from 'server-destroy';
 
 import { APP_DI_TYPES } from '../../app/app.di-types';
-import { IConfigService } from '../../config/config.service.interface';
+import { ConfigServiceInterface } from '../../config/config.service.interface';
 import { logger } from '../../logger';
-import { IHttpService } from './http.service.interface';
+import { HttpServiceInterface } from './http.service.interface';
 
 @injectable()
-export class HttpService implements IHttpService {
+export class HttpService implements HttpServiceInterface {
   http: Server = createServer();
 
-  constructor(@inject(APP_DI_TYPES.ConfigService) private configService: IConfigService) {}
+  constructor(@inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface) {}
 
   getHttp(): Server {
     return this.http;

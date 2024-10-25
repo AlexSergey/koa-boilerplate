@@ -4,7 +4,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { logger } from '../logger';
-import { EnvType, IConfigService } from './config.service.interface';
+import { ConfigServiceInterface, EnvType } from './config.service.interface';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -17,7 +17,7 @@ const pathToEnvFiles = {
 };
 
 @injectable()
-export class ConfigService implements IConfigService {
+export class ConfigService implements ConfigServiceInterface {
   private config: DotenvParseOutput;
 
   private jwtExpiresIn = '7d';

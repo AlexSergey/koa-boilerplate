@@ -3,14 +3,14 @@ import supertest from 'supertest';
 import { boot } from '../src';
 import { AppComponent } from '../src/app/app.component';
 import { APP_DI_TYPES } from '../src/app/app.di-types';
-import { IHttpService } from '../src/boundaries/http/http.service.interface';
+import { HttpServiceInterface } from '../src/boundaries/http/http.service.interface';
 
 let application: AppComponent;
 let request: supertest.SuperTest<supertest.Test>;
 
 beforeAll(async () => {
   const { app, appDiContainer } = await boot;
-  const server = appDiContainer.get<IHttpService>(APP_DI_TYPES.HttpService).getHttp();
+  const server = appDiContainer.get<HttpServiceInterface>(APP_DI_TYPES.HttpService).getHttp();
   request = supertest(server);
   application = app;
 });

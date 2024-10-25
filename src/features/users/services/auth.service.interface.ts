@@ -1,9 +1,9 @@
-import { IUserJwtPayload } from '../types/jwt.interface';
+import { UserJwtPayload } from '../types/jwt.interface';
 
-export interface IAuthService {
+export interface AuthServiceInterface {
   createToken: (email: string) => Promise<string>;
 
-  decodeToken: (token: string) => IUserJwtPayload;
+  decodeToken: (token: string) => UserJwtPayload;
 
   validateToken: (userPassword: string, password: string) => Promise<boolean>;
 }

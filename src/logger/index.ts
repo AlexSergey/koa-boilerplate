@@ -1,15 +1,15 @@
 import { Logger } from 'tslog';
 
-enum LOG_TYPE {
+enum LogTypes {
   hidden = 'hidden',
   json = 'json',
   pretty = 'pretty',
 }
 
 const TYPES = {
-  development: LOG_TYPE.pretty,
-  production: LOG_TYPE.json,
-  test: LOG_TYPE.hidden,
+  development: LogTypes.pretty,
+  production: LogTypes.json,
+  test: LogTypes.hidden,
 };
 
 const type =

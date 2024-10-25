@@ -1,9 +1,9 @@
 import { DefaultState, Middleware } from 'koa';
 
 import { ExpiredTokenError, UnauthorizedError, UserNotFoundError } from '../errors';
-import { IContextUser } from '../features/users/types/context-user.interface';
+import { ContextUser } from '../features/users/types/context-user.interface';
 
-export const authGuard: Middleware<DefaultState, IContextUser> = async (ctx, next) => {
+export const authGuard: Middleware<DefaultState, ContextUser> = async (ctx, next) => {
   const token = ctx.get('Authorization');
 
   if (!token) {

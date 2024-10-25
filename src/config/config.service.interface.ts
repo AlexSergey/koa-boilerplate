@@ -1,6 +1,6 @@
 export type EnvType = 'development' | 'production' | 'test';
 
-export interface IConfigService {
+export interface ConfigServiceInterface {
   get: (key: string) => string;
 
   getEnv: () => EnvType;

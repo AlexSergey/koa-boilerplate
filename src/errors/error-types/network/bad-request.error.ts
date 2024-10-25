@@ -1,10 +1,10 @@
-import type { IError } from '../../common/error.interface';
+import type { ErrorInterface } from '../../common/error.interface';
 
 import { BaseError } from '../../common/base.error';
 import { BAD_REQUEST } from '../../constants/messages';
 import { getStatus } from '../../utils/get-status';
 
-export class BadRequestError extends BaseError implements IError {
+export class BadRequestError extends BaseError implements ErrorInterface {
   public override code = BAD_REQUEST.code;
 
   public override message = BAD_REQUEST.message;

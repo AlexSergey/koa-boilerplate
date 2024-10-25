@@ -89,6 +89,14 @@ const customTypescriptConfig = {
         format: ['UPPER_CASE', 'StrictPascalCase'],
         selector: 'interface',
       },
+      {
+        format: ['PascalCase'],
+        selector: 'typeLike',
+      },
+      {
+        format: ['UPPER_CASE', 'StrictPascalCase'],
+        selector: 'class',
+      },
     ],
     '@typescript-eslint/no-empty-interface': [
       'error',

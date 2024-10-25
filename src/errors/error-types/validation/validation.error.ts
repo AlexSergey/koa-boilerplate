@@ -1,10 +1,10 @@
-import type { IError } from '../../common/error.interface';
+import type { ErrorInterface } from '../../common/error.interface';
 
 import { BaseError } from '../../common/base.error';
 import { INVALID_REQUEST_BODY_FORMAT } from '../../constants/messages';
 import { getStatus } from '../../utils/get-status';
 
-export class ValidationError extends BaseError implements IError {
+export class ValidationError extends BaseError implements ErrorInterface {
   public override code = INVALID_REQUEST_BODY_FORMAT.code;
 
   public override message = INVALID_REQUEST_BODY_FORMAT.message;

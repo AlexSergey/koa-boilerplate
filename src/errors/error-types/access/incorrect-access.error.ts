@@ -1,4 +1,4 @@
-import type { IError } from '../../common/error.interface';
+import type { ErrorInterface } from '../../common/error.interface';
 
 import { BaseError } from '../../common/base.error';
 import { INCORRECT_ACCESS } from '../../constants/messages';
@@ -32,7 +32,7 @@ import { getStatus } from '../../utils/get-status';
  *                 default: "fail"
  *                 description: Common error status
  */
-export class IncorrectAccessError extends BaseError implements IError {
+export class IncorrectAccessError extends BaseError implements ErrorInterface {
   public override code = INCORRECT_ACCESS.code;
 
   public override message = INCORRECT_ACCESS.message;

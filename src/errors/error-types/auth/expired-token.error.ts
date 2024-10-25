@@ -1,4 +1,4 @@
-import type { IError } from '../../common/error.interface';
+import type { ErrorInterface } from '../../common/error.interface';
 
 import { BaseError } from '../../common/base.error';
 import { TOKEN_EXPIRED } from '../../constants/messages';
@@ -32,7 +32,7 @@ import { getStatus } from '../../utils/get-status';
  *                 default: "fail"
  *                 description: Common error status
  */
-export class ExpiredTokenError extends BaseError implements IError {
+export class ExpiredTokenError extends BaseError implements ErrorInterface {
   public override code = TOKEN_EXPIRED.code;
 
   public override message = TOKEN_EXPIRED.message;

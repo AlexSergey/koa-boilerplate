@@ -2,7 +2,7 @@ import { DefaultContext, DefaultState, Middleware, Next } from 'koa';
 
 import { METHODS } from './methods';
 
-export interface IRouteType<StateT = DefaultState, ContextT = DefaultContext> {
+export interface RouteType<StateT = DefaultState, ContextT = DefaultContext> {
   callback: (ctx: DefaultContext, next?: Next) => Promise<void>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   controller?: any;
@@ -14,7 +14,7 @@ export interface IRouteType<StateT = DefaultState, ContextT = DefaultContext> {
   url: string;
 }
 
-export interface IRoutesConfigType {
+export interface RoutesConfigType {
   prefix?: string;
   version?: string;
 }

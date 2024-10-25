@@ -1,4 +1,4 @@
-import type { IError } from '../../common/error.interface';
+import type { ErrorInterface } from '../../common/error.interface';
 
 import { BaseError } from '../../common/base.error';
 import { UNAUTHORIZED } from '../../constants/messages';
@@ -32,7 +32,7 @@ import { getStatus } from '../../utils/get-status';
  *                 default: "fail"
  *                 description: Common error status
  */
-export class UnauthorizedError extends BaseError implements IError {
+export class UnauthorizedError extends BaseError implements ErrorInterface {
   public override code = UNAUTHORIZED.code;
 
   public override message = UNAUTHORIZED.message;
