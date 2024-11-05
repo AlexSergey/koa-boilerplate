@@ -2,7 +2,6 @@ import { inject, injectable } from 'inversify';
 
 import { FrameworkServiceInterface } from '../boundaries/framework/framework.service.interface';
 import { HttpServiceInterface } from '../boundaries/http/http.service.interface';
-import { ConfigServiceInterface } from '../config/config.service.interface';
 import { DatabaseServiceInterface } from '../database/database.service.interface';
 import { UsersControllerInterface } from '../features/users/controllers/users.controller.interface';
 import { USERS_DI_TYPES } from '../features/users/users.di-types';
@@ -11,7 +10,6 @@ import { APP_DI_TYPES } from './app.di-types';
 @injectable()
 export class AppComponent {
   constructor(
-    @inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface,
     @inject(APP_DI_TYPES.HttpService) private httpService: HttpServiceInterface,
     @inject(APP_DI_TYPES.FrameworkService) private frameworkService: FrameworkServiceInterface,
     @inject(APP_DI_TYPES.DatabaseService) private databaseService: DatabaseServiceInterface,
