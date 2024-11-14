@@ -1,20 +1,17 @@
 import { UserModel } from '@prisma/client';
-import { inject, injectable } from 'inversify';
+import { Injectable } from 'friendly-di';
 
-import { APP_DI_TYPES } from '../../../app/app.di-types';
-import { ConfigServiceInterface } from '../../../config/config.service.interface';
+import { ConfigService } from '../../../config/config.service';
 import { UserLoginDto } from '../dtos/user-login.dto';
 import { UserRegisterDto } from '../dtos/user-register.dto';
 import { UserEntity } from '../entities/user.entity';
-import { UsersRepositoryInterface } from '../repositories/users.repository.interface';
-import { USERS_DI_TYPES } from '../users.di-types';
-import { UsersServiceInterface } from './users.service.interface';
+import { UsersRepository } from '../repositories/users.repository';
 
-@injectable()
-export class UsersService implements UsersServiceInterface {
+@Injectable()
+export class UsersService {
   constructor(
-    @inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface,
-    @inject(USERS_DI_TYPES.UsersRepository) private usersRepository: UsersRepositoryInterface,
+    private configService: ConfigService,
+    private usersRepository: UsersRepository,
   ) {}
 
   async createUser({ email, name, password }: UserRegisterDto): Promise<null | UserModel> {

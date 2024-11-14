@@ -1,15 +1,13 @@
 import { compare } from 'bcrypt';
-import { inject, injectable } from 'inversify';
+import { Injectable } from 'friendly-di';
 import jsonwebtoken from 'jsonwebtoken';
 
-import { APP_DI_TYPES } from '../../../app/app.di-types';
-import { ConfigServiceInterface } from '../../../config/config.service.interface';
+import { ConfigService } from '../../../config/config.service';
 import { UserJwtPayload } from '../types/jwt.interface';
-import { AuthServiceInterface } from './auth.service.interface';
 
-@injectable()
-export class AuthService implements AuthServiceInterface {
-  constructor(@inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface) {}
+@Injectable()
+export class AuthService {
+  constructor(private configService: ConfigService) {}
 
   createToken(email: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {

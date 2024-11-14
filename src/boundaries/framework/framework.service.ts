@@ -1,6 +1,6 @@
 import corsMiddleware from '@koa/cors';
 import Router from '@koa/router';
-import { inject, injectable } from 'inversify';
+import { Injectable } from 'friendly-di';
 import Koa from 'koa';
 import bodyParserMiddleware from 'koa-bodyparser';
 import koaHelmet from 'koa-helmet';
@@ -10,16 +10,13 @@ import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { APP_DI_TYPES } from '../../app/app.di-types';
-import { ConfigServiceInterface } from '../../config/config.service.interface';
+import { ConfigService } from '../../config/config.service';
 import { errorHandlerMiddleware, ValidationError } from '../../errors';
-import { AuthServiceInterface } from '../../features/users/services/auth.service.interface';
-import { UsersServiceInterface } from '../../features/users/services/users.service.interface';
-import { USERS_DI_TYPES } from '../../features/users/users.di-types';
+import { AuthService } from '../../features/users/services/auth.service';
+import { UsersService } from '../../features/users/services/users.service';
 import { bind, RoutesConfigType } from '../../libs/router';
 import { logger } from '../../logger';
-import { HttpServiceInterface } from '../http/http.service.interface';
-import { FrameworkServiceInterface } from './framework.service.interface';
+import { HttpService } from '../http/http.service';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -27,12 +24,12 @@ const __dirname = dirname(__filename);
 
 const openapiSpec = JSON.parse(readFileSync(resolve(__dirname, '../../openapi.json'), 'utf8'));
 
-@injectable()
-export class FrameworkService implements FrameworkServiceInterface {
+@Injectable()
+export class FrameworkService {
   constructor(
-    @inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface,
-    @inject(USERS_DI_TYPES.UsersService) private usersService: UsersServiceInterface,
-    @inject(USERS_DI_TYPES.AuthService) private authService: AuthServiceInterface,
+    private configService: ConfigService,
+    private usersService: UsersService,
+    private authService: AuthService,
     private framework: Koa = new Koa(),
     private router: Router = new Router(),
   ) {}
@@ -104,7 +101,7 @@ export class FrameworkService implements FrameworkServiceInterface {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  bind(httpService: HttpServiceInterface, controllers?: any[], routesConfig?: RoutesConfigType): void {
+  bind(httpService: HttpService, controllers?: any[], routesConfig?: RoutesConfigType): void {
     this.injectContext();
     this.useMiddlewares();
     this.setupSwagger();

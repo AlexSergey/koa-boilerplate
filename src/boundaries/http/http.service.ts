@@ -1,17 +1,15 @@
-import { inject, injectable } from 'inversify';
+import { Injectable } from 'friendly-di';
 import { createServer, Server } from 'node:http';
 import enableDestroy from 'server-destroy';
 
-import { APP_DI_TYPES } from '../../app/app.di-types';
-import { ConfigServiceInterface } from '../../config/config.service.interface';
+import { ConfigService } from '../../config/config.service';
 import { logger } from '../../logger';
-import { HttpServiceInterface } from './http.service.interface';
 
-@injectable()
-export class HttpService implements HttpServiceInterface {
+@Injectable()
+export class HttpService {
   http: Server = createServer();
 
-  constructor(@inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface) {}
+  constructor(private configService: ConfigService) {}
 
   getHttp(): Server {
     return this.http;

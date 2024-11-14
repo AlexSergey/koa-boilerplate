@@ -1,19 +1,17 @@
-import { inject, injectable } from 'inversify';
+import { Injectable } from 'friendly-di';
 
-import { FrameworkServiceInterface } from '../boundaries/framework/framework.service.interface';
-import { HttpServiceInterface } from '../boundaries/http/http.service.interface';
-import { DatabaseServiceInterface } from '../database/database.service.interface';
-import { UsersControllerInterface } from '../features/users/controllers/users.controller.interface';
-import { USERS_DI_TYPES } from '../features/users/users.di-types';
-import { APP_DI_TYPES } from './app.di-types';
+import { FrameworkService } from '../boundaries/framework/framework.service';
+import { HttpService } from '../boundaries/http/http.service';
+import { DatabaseService } from '../database/database.service';
+import { UsersController } from '../features/users/controllers/users.controller';
 
-@injectable()
+@Injectable()
 export class AppComponent {
   constructor(
-    @inject(APP_DI_TYPES.HttpService) private httpService: HttpServiceInterface,
-    @inject(APP_DI_TYPES.FrameworkService) private frameworkService: FrameworkServiceInterface,
-    @inject(APP_DI_TYPES.DatabaseService) private databaseService: DatabaseServiceInterface,
-    @inject(USERS_DI_TYPES.UsersController) private usersController: UsersControllerInterface,
+    private httpService: HttpService,
+    private frameworkService: FrameworkService,
+    private databaseService: DatabaseService,
+    private usersController: UsersController,
   ) {}
 
   async start(): Promise<void> {

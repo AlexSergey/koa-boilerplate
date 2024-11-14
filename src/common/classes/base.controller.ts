@@ -1,7 +1,7 @@
-import { injectable } from 'inversify';
+import { Injectable } from 'friendly-di';
 import { DefaultContext } from 'koa';
 
-@injectable()
+@Injectable()
 export class BaseController {
   ok(ctx: DefaultContext, message = 'ok', data?: unknown): void {
     ctx.body = {

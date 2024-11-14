@@ -1,17 +1,16 @@
-import { Container } from 'inversify';
+import { Container } from 'friendly-di';
 import 'reflect-metadata';
 
 import { AppComponent } from './app/app.component';
-import { appDiContainer } from './app/app.di-container';
-import { APP_DI_TYPES } from './app/app.di-types';
 
 export interface BootstrapReturnType {
   app: AppComponent;
-  appDiContainer: Container;
+  appDiContainer: Container<typeof AppComponent>;
 }
 
 const bootstrap = async (): Promise<BootstrapReturnType> => {
-  const app = appDiContainer.get<AppComponent>(APP_DI_TYPES.App);
+  const appDiContainer = new Container(AppComponent);
+  const app = appDiContainer.compile();
   await app.start();
 
   return { app, appDiContainer };

@@ -1,28 +1,23 @@
-import { inject, injectable } from 'inversify';
+import { Injectable } from 'friendly-di';
 import { DefaultContext } from 'koa';
 
-import { APP_DI_TYPES } from '../../../app/app.di-types';
 import { BaseController } from '../../../common';
-import { ConfigServiceInterface } from '../../../config/config.service.interface';
 import { UnauthorizedError, UserAlreadyExistsError, UserNotFoundError } from '../../../errors';
 import { authGuard } from '../../../guards/auth.guard';
 import { Controller, Get, Post } from '../../../libs/router';
 import { validateMiddleware } from '../../../middlewares/validate.middleware';
 import { UserLoginDto } from '../dtos/user-login.dto';
 import { UserRegisterDto } from '../dtos/user-register.dto';
-import { AuthServiceInterface } from '../services/auth.service.interface';
-import { UsersServiceInterface } from '../services/users.service.interface';
+import { AuthService } from '../services/auth.service';
+import { UsersService } from '../services/users.service';
 import { ContextUser } from '../types/context-user.interface';
-import { USERS_DI_TYPES } from '../users.di-types';
-import { UsersControllerInterface } from './users.controller.interface';
 
-@injectable()
+@Injectable()
 @Controller('users')
-export class UsersController extends BaseController implements UsersControllerInterface {
+export class UsersController extends BaseController {
   constructor(
-    @inject(USERS_DI_TYPES.UsersService) private usersService: UsersServiceInterface,
-    @inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface,
-    @inject(USERS_DI_TYPES.AuthService) private authService: AuthServiceInterface,
+    private usersService: UsersService,
+    private authService: AuthService,
   ) {
     super();
   }

@@ -1,24 +1,15 @@
 import { plainToInstance } from 'class-transformer';
-import { Container, inject, injectable } from 'inversify';
+import { Container, Injectable } from 'friendly-di';
 import 'reflect-metadata';
 
-import { APP_DI_TYPES } from '../src/app/app.di-types';
 import { ConfigService } from '../src/config/config.service';
-import { ConfigServiceInterface } from '../src/config/config.service.interface';
 import { DatabaseService } from '../src/database/database.service';
-import { DatabaseServiceInterface } from '../src/database/database.service.interface';
 import { UserRegisterDto } from '../src/features/users/dtos/user-register.dto';
-import { UsersRepository } from '../src/features/users/repositories/users.repository';
-import { UsersRepositoryInterface } from '../src/features/users/repositories/users.repository.interface';
 import { UsersService } from '../src/features/users/services/users.service';
-import { UsersServiceInterface } from '../src/features/users/services/users.service.interface';
-import { USERS_DI_TYPES } from '../src/features/users/users.di-types';
 import { logger } from '../src/logger';
 
-@injectable()
+@Injectable()
 class SeedAdminUser {
-  static readonly key = 'seedAdmin';
-
   apply = async (): Promise<void> => {
     const name = this.configService.get('SEED_ADMIN_USER_NAME');
     const email = this.configService.get('SEED_ADMIN_USER_EMAIL');
@@ -37,19 +28,13 @@ class SeedAdminUser {
   };
 
   constructor(
-    @inject(APP_DI_TYPES.ConfigService) private configService: ConfigServiceInterface,
-    @inject(APP_DI_TYPES.DatabaseService) private databaseService: DatabaseServiceInterface,
-    @inject(USERS_DI_TYPES.UsersService) private usersService: UsersServiceInterface,
+    private configService: ConfigService,
+    private databaseService: DatabaseService,
+    private usersService: UsersService,
   ) {}
 }
-const container = new Container();
-container.bind<UsersRepositoryInterface>(USERS_DI_TYPES.UsersRepository).to(UsersRepository);
-container.bind<UsersServiceInterface>(USERS_DI_TYPES.UsersService).to(UsersService);
-container.bind<DatabaseServiceInterface>(APP_DI_TYPES.DatabaseService).to(DatabaseService);
-container.bind<ConfigServiceInterface>(APP_DI_TYPES.ConfigService).to(ConfigService);
-container.bind<SeedAdminUser>(SeedAdminUser.key).to(SeedAdminUser);
 
-const seedAdmin = container.get<SeedAdminUser>(SeedAdminUser.key);
+const seedAdmin = new Container(SeedAdminUser).compile();
 seedAdmin
   .apply()
   .catch((e) => {

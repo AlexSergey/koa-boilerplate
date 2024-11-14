@@ -21,3 +21,12 @@ Content-Type: application/json
 ### GET /users/info
 GET http://localhost:8000/api/users/info
 Authorization: Bearer {{auth_token}}
+
+### POST /users/login
+POST http://localhost:8000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "admin@mysite.com",
+  "password": "admin123mysite"
+}

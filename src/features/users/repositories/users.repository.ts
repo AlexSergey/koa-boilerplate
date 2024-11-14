@@ -1,14 +1,12 @@
 import { UserModel } from '@prisma/client';
-import { inject, injectable } from 'inversify';
+import { Injectable } from 'friendly-di';
 
-import { APP_DI_TYPES } from '../../../app/app.di-types';
-import { DatabaseServiceInterface } from '../../../database/database.service.interface';
+import { DatabaseService } from '../../../database/database.service';
 import { UserEntity } from '../entities/user.entity';
-import { UsersRepositoryInterface } from './users.repository.interface';
 
-@injectable()
-export class UsersRepository implements UsersRepositoryInterface {
-  constructor(@inject(APP_DI_TYPES.DatabaseService) private databaseService: DatabaseServiceInterface) {}
+@Injectable()
+export class UsersRepository {
+  constructor(private databaseService: DatabaseService) {}
 
   async create({ email, name, password }: UserEntity): Promise<UserModel> {
     return this.databaseService.client.userModel.create({

@@ -1,10 +1,9 @@
 import { config, DotenvConfigOutput, DotenvParseOutput } from 'dotenv';
-import { injectable } from 'inversify';
+import { Injectable } from 'friendly-di';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { logger } from '../logger';
-import { ConfigServiceInterface, EnvType } from './config.service.interface';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -16,8 +15,14 @@ const pathToEnvFiles = {
   test: resolve(__dirname, '../../', '.env.test'),
 };
 
-@injectable()
-export class ConfigService implements ConfigServiceInterface {
+enum EnvType {
+  development = 'development',
+  production = 'production',
+  test = 'test',
+}
+
+@Injectable()
+export class ConfigService {
   private config: DotenvParseOutput;
 
   private jwtExpiresIn = '7d';
