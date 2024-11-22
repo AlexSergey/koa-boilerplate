@@ -12,8 +12,8 @@ import { AuthService } from '../services/auth.service';
 import { UsersService } from '../services/users.service';
 import { ContextUser } from '../types/context-user.interface';
 
-@Injectable()
 @Controller('users')
+@Injectable()
 export class UsersController extends BaseController {
   constructor(
     private usersService: UsersService,

@@ -2,10 +2,10 @@ import corsMiddleware from '@koa/cors';
 import Router from '@koa/router';
 import { Injectable } from 'friendly-di';
 import Koa from 'koa';
+import { koaSwagger } from 'koa2-swagger-ui';
 import bodyParserMiddleware from 'koa-bodyparser';
 import koaHelmet from 'koa-helmet';
 import loggerMiddleware from 'koa-logger';
-import { koaSwagger } from 'koa2-swagger-ui';
 import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -33,6 +33,17 @@ export class FrameworkService {
     private framework: Koa = new Koa(),
     private router: Router = new Router(),
   ) {}
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  bind(httpService: HttpService, controllers?: any[], routesConfig?: RoutesConfigType): void {
+    this.injectContext();
+    this.useMiddlewares();
+    this.setupSwagger();
+    this.useRoutes(controllers, routesConfig);
+    const http = httpService.getHttp();
+
+    http.on('request', this.framework.callback());
+  }
 
   private injectContext(): void {
     this.framework.use(async (ctx, next) => {
@@ -98,16 +109,5 @@ export class FrameworkService {
       bind(this.router, controllers, routesConfig);
       this.framework.use(this.router.routes()).use(this.router.allowedMethods());
     }
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  bind(httpService: HttpService, controllers?: any[], routesConfig?: RoutesConfigType): void {
-    this.injectContext();
-    this.useMiddlewares();
-    this.setupSwagger();
-    this.useRoutes(controllers, routesConfig);
-    const http = httpService.getHttp();
-
-    http.on('request', this.framework.callback());
   }
 }

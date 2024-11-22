@@ -14,6 +14,7 @@ class ConfigServiceMock extends ConfigService {
 
 @Injectable()
 class UsersRepositoryMock extends UsersRepository {
+  override findByEmail = jest.fn().mockReturnValue(null) as (email: string) => Promise<UserModel>;
   override create = async (user: UserEntity): Promise<UserModel> => {
     return {
       email: user.email,
@@ -22,7 +23,6 @@ class UsersRepositoryMock extends UsersRepository {
       password: user.password,
     };
   };
-  override findByEmail = jest.fn().mockReturnValue(null) as (email: string) => Promise<UserModel>;
 }
 
 const container = new Container(UsersService)

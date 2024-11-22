@@ -10,6 +10,12 @@ import { logger } from '../src/logger';
 
 @Injectable()
 class SeedAdminUser {
+  constructor(
+    private configService: ConfigService,
+    private databaseService: DatabaseService,
+    private usersService: UsersService,
+  ) {}
+
   apply = async (): Promise<void> => {
     const name = this.configService.get('SEED_ADMIN_USER_NAME');
     const email = this.configService.get('SEED_ADMIN_USER_EMAIL');
@@ -26,12 +32,6 @@ class SeedAdminUser {
   disconnect = async (): Promise<void> => {
     await this.databaseService.disconnect();
   };
-
-  constructor(
-    private configService: ConfigService,
-    private databaseService: DatabaseService,
-    private usersService: UsersService,
-  ) {}
 }
 
 const seedAdmin = new Container(SeedAdminUser).compile();

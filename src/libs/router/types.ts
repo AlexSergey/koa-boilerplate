@@ -2,6 +2,11 @@ import { DefaultContext, DefaultState, Middleware, Next } from 'koa';
 
 import { METHODS } from './methods';
 
+export interface RoutesConfigType {
+  prefix?: string;
+  version?: string;
+}
+
 export interface RouteType<StateT = DefaultState, ContextT = DefaultContext> {
   callback: (ctx: DefaultContext, next?: Next) => Promise<void>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -12,9 +17,4 @@ export interface RouteType<StateT = DefaultState, ContextT = DefaultContext> {
   method: METHODS;
   middlewares?: Middleware<StateT, ContextT> | Middleware<StateT, ContextT>[];
   url: string;
-}
-
-export interface RoutesConfigType {
-  prefix?: string;
-  version?: string;
 }
