@@ -4,7 +4,6 @@ import json from 'eslint-plugin-json';
 import perfectionist from 'eslint-plugin-perfectionist';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import * as regexpPlugin from 'eslint-plugin-regexp';
-import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import globals from 'globals';
 import eslintTs from 'typescript-eslint';
 
@@ -72,7 +71,6 @@ const customTypescriptConfig = {
   plugins: {
     'check-file': checkFile,
     'import/parsers': tsParser,
-    unicorn: eslintPluginUnicorn,
   },
   rules: {
     '@typescript-eslint/ban-ts-comment': 'error',
@@ -139,14 +137,6 @@ const customTypescriptConfig = {
     'no-underscore-dangle': 'off',
     'no-unused-vars': 'off',
     'no-warning-comments': 'warn',
-
-    'unicorn/custom-error-definition': 'error',
-    'unicorn/empty-brace-spaces': 'error',
-    'unicorn/error-message': 'error',
-    'unicorn/no-instanceof-array': 'error',
-    'unicorn/prefer-keyboard-event-key': 'error',
-    'unicorn/prefer-node-protocol': 'error',
-    'unicorn/throw-new-error': 'error',
   },
 };
 
