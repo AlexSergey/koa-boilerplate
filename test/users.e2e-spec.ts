@@ -22,7 +22,6 @@ describe('Users e2e', () => {
       name: 'test_user',
       password: 'test_user_password',
     });
-
     expect(res.statusCode).toBe(200);
   });
 

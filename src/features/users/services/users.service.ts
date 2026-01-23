@@ -14,10 +14,11 @@ export class UsersService {
     private usersRepository: UsersRepository,
   ) {}
 
-  async createUser({ email, name, password }: UserRegisterDto): Promise<null | UserModel> {
+  async createUser({ email, name, password }: UserRegisterDto): Promise<null | UserModel | void> {
     const newUser = new UserEntity(email, name);
     const salt = this.configService.get('SALT');
     await newUser.setPassword(password, Number(salt));
+
     const existedUser = await this.usersRepository.findByEmail(email);
 
     if (existedUser) {
