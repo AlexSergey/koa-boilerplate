@@ -104,3 +104,4 @@ test-reports
 # Database
 prisma/db.*
 prisma/dev.db
+prisma/generated

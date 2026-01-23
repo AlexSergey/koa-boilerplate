@@ -46,6 +46,7 @@ const ignores = [
   'locales/',
   'src/locales/',
   'seo_report',
+  'prisma/generated',
 ];
 const tsFiles = ['**/*.ts'];
 
@@ -154,6 +155,13 @@ const recommendedTypeScriptConfigs = [
   })),
 ];
 
+const customPackageJsonConfig = {
+  files: ['package.json'],
+  rules: {
+    'package-json/require-type': 'off',
+  },
+};
+
 export default [
   { ignores },
   packageJson.configs.recommended,
@@ -162,4 +170,5 @@ export default [
   perfectionist.configs['recommended-natural'],
   regexpPlugin.configs['flat/recommended'],
   customTypescriptConfig,
+  customPackageJsonConfig,
 ];

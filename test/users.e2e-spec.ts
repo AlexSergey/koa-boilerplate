@@ -1,14 +1,15 @@
 import supertest from 'supertest';
 
-import { boot } from '../src';
 import { AppComponent } from '../src/app/app.component';
+import { bootstrap } from '../src/bootstrap';
 import { HttpService } from '../src/boundaries/http/http.service';
+import { SuperTestAgent } from './types';
 
 let application: AppComponent;
-let request: supertest.SuperTest<supertest.Test>;
+let request: SuperTestAgent;
 
 beforeAll(async () => {
-  const { app, appDiContainer } = await boot;
+  const { app, appDiContainer } = await bootstrap();
   const server = appDiContainer.get(HttpService).getHttp();
   request = supertest(server);
   application = app;

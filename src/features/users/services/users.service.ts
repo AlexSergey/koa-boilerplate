@@ -1,6 +1,6 @@
-import { UserModel } from '@prisma/client';
 import { Injectable } from 'friendly-di';
 
+import { UserModel } from '../../../../prisma/generated';
 import { ConfigService } from '../../../config/config.service';
 import { UserLoginDto } from '../dtos/user-login.dto';
 import { UserRegisterDto } from '../dtos/user-register.dto';

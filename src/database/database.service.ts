@@ -1,19 +1,20 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 import { Injectable } from 'friendly-di';
 
+import { PrismaClient } from '../../prisma/generated';
+import { ConfigService } from '../config/config.service';
 import { logger } from '../logger';
 
 @Injectable()
-export class DatabaseService {
-  client: PrismaClient;
-
-  constructor() {
-    this.client = new PrismaClient();
+export class DatabaseService extends PrismaClient {
+  constructor(private configService: ConfigService) {
+    const adapter = new PrismaBetterSqlite3({ url: configService.get('DATABASE_URL') });
+    super({ adapter });
   }
 
   async connect(): Promise<void> {
     try {
-      await this.client.$connect();
+      await this.$connect();
       logger.info('[Prisma] Connected');
     } catch (e) {
       logger.error(e);
@@ -21,7 +22,7 @@ export class DatabaseService {
   }
 
   async disconnect(): Promise<void> {
-    await this.client.$disconnect();
+    await this.$disconnect();
     logger.info('[Prisma] Disconnected');
   }
 }

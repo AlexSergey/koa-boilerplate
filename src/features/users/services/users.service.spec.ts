@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals';
-import { UserModel } from '@prisma/client';
 import { Container, Injectable } from 'friendly-di';
 
+import { UserModel } from '../../../../prisma/generated';
 import { ConfigService } from '../../../config/config.service';
 import { UserEntity } from '../entities/user.entity';
 import { UsersRepository } from '../repositories/users.repository';

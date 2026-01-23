@@ -2,17 +2,18 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider     = "prisma-client-js"
+  output       = "./generated"
+  moduleFormat = "cjs"
 }
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
 }
 
 model UserModel {
-  id Int @id @default(autoincrement())
-  email String
+  id       Int    @id @default(autoincrement())
+  email    String
   password String
-  name String
+  name     String
 }

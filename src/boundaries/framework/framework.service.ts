@@ -73,7 +73,21 @@ export class FrameworkService {
         },
       }),
     );
-    this.framework.use(koaHelmet());
+    // Fix blocking CDN/Google Fonts for Swagger UI
+    this.framework.use(
+      koaHelmet({
+        contentSecurityPolicy: {
+          directives: {
+            connectSrc: ["'self'"],
+            defaultSrc: ["'self'"],
+            fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+            imgSrc: ["'self'", 'data:'],
+            scriptSrc: ["'self'", 'https://cdnjs.cloudflare.com', "'unsafe-inline'"],
+            styleSrc: ["'self'", "'unsafe-inline'", 'https://cdnjs.cloudflare.com', 'https://fonts.googleapis.com'],
+          },
+        },
+      }),
+    );
     this.framework.use(errorHandlerMiddleware());
     this.framework.use(
       corsMiddleware(

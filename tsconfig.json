@@ -10,10 +10,7 @@
     "outDir": "./dist/",
 
     // Node.js 18
-    "lib": [
-      "es2022",
-      "dom"
-    ],
+    "lib": ["es2022", "dom"],
     "module": "es2022",
     "target": "ES2022",
     "moduleResolution": "node",
@@ -40,10 +37,7 @@
     "noEmitOnError": true,
     "preserveConstEnums": true
   },
-  "typeRoots": [
-    "types",
-    "node_modules/@types"
-  ],
+  "typeRoots": ["types", "node_modules/@types"],
   "include": [
     "./src/**/**/*",
     "jest.e2e.config.ts",
@@ -52,9 +46,8 @@
     "swagger.generate.ts",
     "./types/**/**/*",
     "./test/**/**/*",
-    "./prisma/**/**/*.ts"
+    "./prisma/**/**/*.ts",
+    "prisma.config.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
