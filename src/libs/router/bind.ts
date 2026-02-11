@@ -1,10 +1,10 @@
+/* eslint-disable */
 import Router from '@koa/router';
 import urlJoin from 'proper-url-join';
 
 import { RouterStore } from './router.store';
 import { RoutesConfigType } from './types';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const bind = (router: Router, controllers: any[], config?: RoutesConfigType): void => {
   const routerStore = RouterStore.getInstance();
   const routes = routerStore.get();
@@ -19,7 +19,6 @@ export const bind = (router: Router, controllers: any[], config?: RoutesConfigTy
 
   routes.forEach((route) => {
     if (!route.matched) {
-      // eslint-disable-next-line no-console
       console.warn(
         `The controller ${route.controller.name} didn't matched to route. Controller instance should be passed to bind function`,
       );

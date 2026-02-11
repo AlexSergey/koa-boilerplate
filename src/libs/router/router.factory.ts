@@ -1,10 +1,10 @@
+/* eslint-disable */
 import { DefaultContext, DefaultState, Middleware } from 'koa';
 
 import { ROUTE_METADATA_KEY } from './constants';
 import { METHODS } from './methods';
 import { RouteType } from './types';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DecoratorType = (target: any, propertyKey: string, descriptor: PropertyDescriptor) => void;
 
 const factory =

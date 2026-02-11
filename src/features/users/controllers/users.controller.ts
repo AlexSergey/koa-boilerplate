@@ -92,7 +92,8 @@ export class UsersController extends BaseController {
    */
   @Post('/login', validateMiddleware(UserLoginDto))
   async login(ctx: DefaultContext): Promise<void> {
-    const data = ctx.request.body as UserLoginDto;
+    const req = ctx.request as { body: UserLoginDto };
+    const data = req.body;
     const result = await this.usersService.loginUser(data);
     if (!result) {
       throw new UnauthorizedError();
@@ -103,7 +104,8 @@ export class UsersController extends BaseController {
 
   @Post('/register', validateMiddleware(UserRegisterDto))
   async register(ctx: DefaultContext): Promise<void> {
-    const data = ctx.request.body as UserRegisterDto;
+    const req = ctx.request as { body: UserRegisterDto };
+    const data = req.body;
     const result = await this.usersService.createUser(data);
     if (!result) {
       throw new UserAlreadyExistsError();

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { DefaultState, Middleware } from 'koa';
 
 import { ExpiredTokenError, UnauthorizedError, UserNotFoundError } from '../errors';
@@ -16,7 +17,6 @@ export const authGuard: Middleware<DefaultState, ContextUser> = async (ctx, next
     const pureToken = token.replace('Bearer ', '');
     currentUser = ctx.services.authService.decodeToken(pureToken);
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e);
     throw new ExpiredTokenError();
   }

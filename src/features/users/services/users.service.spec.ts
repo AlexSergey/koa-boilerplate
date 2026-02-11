@@ -16,12 +16,12 @@ class ConfigServiceMock extends ConfigService {
 class UsersRepositoryMock extends UsersRepository {
   override findByEmail = jest.fn().mockReturnValue(null) as (email: string) => Promise<UserModel>;
   override create = async (user: UserEntity): Promise<UserModel> => {
-    return {
+    return Promise.resolve({
       email: user.email,
       id: 1,
       name: user.name,
       password: user.password,
-    };
+    });
   };
 }
 

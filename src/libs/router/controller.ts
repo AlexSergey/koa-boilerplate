@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Middleware } from 'koa';
 import urlJoin from 'proper-url-join';
 
@@ -6,7 +7,6 @@ import { RouterStore } from './router.store';
 import { RouteType } from './types';
 
 export const Controller = (url?: string, middlewares?: Middleware | Middleware[]) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   return (constructor: Function): void => {
     const routes: RouteType[] = Reflect.getMetadata(ROUTE_METADATA_KEY, constructor.prototype);
     const routerStore = RouterStore.getInstance();

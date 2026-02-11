@@ -26,7 +26,7 @@ describe('Users e2e', () => {
   });
 
   it('Short password', async () => {
-    const res = await request.post('/api/users/register').send({
+    const res: { body: { data: { password: string } } } = await request.post('/api/users/register').send({
       email: 'test_user2@test.com',
       name: 'test_user2',
       password: '123',

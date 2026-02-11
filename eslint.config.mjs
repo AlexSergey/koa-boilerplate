@@ -5,6 +5,7 @@ import perfectionist from 'eslint-plugin-perfectionist';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import * as regexpPlugin from 'eslint-plugin-regexp';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 import eslintTs from 'typescript-eslint';
 
 const ignores = [
@@ -47,6 +48,8 @@ const ignores = [
   'src/locales/',
   'seo_report',
   'prisma/generated',
+  'prisma/migrations',
+  'grafana/**',
 ];
 const tsFiles = ['**/*.ts'];
 
@@ -153,6 +156,10 @@ const recommendedTypeScriptConfigs = [
     ...config,
     files: tsFiles,
   })),
+  ...tseslint.configs.recommendedTypeChecked.map((config) => ({
+    ...config,
+    files: tsFiles,
+  })),
 ];
 
 const customPackageJsonConfig = {
@@ -170,5 +177,7 @@ export default [
   perfectionist.configs['recommended-natural'],
   regexpPlugin.configs['flat/recommended'],
   customTypescriptConfig,
+  packageJson.configs.recommended,
   customPackageJsonConfig,
+  packageJson.configs.stylistic,
 ];

@@ -22,7 +22,9 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = dirname(__filename);
 
-const openapiSpec = JSON.parse(readFileSync(resolve(__dirname, '../../openapi.json'), 'utf8'));
+const openapiSpec: Record<string, unknown> = JSON.parse(
+  readFileSync(resolve(__dirname, '../../openapi.json'), 'utf8'),
+) as Record<string, unknown>;
 
 @Injectable()
 export class FrameworkService {
@@ -42,6 +44,7 @@ export class FrameworkService {
     this.useRoutes(controllers, routesConfig);
     const http = httpService.getHttp();
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     http.on('request', this.framework.callback());
   }
 

@@ -36,7 +36,7 @@ export class HttpService {
         if (err instanceof Error) {
           logger.error(`HTTP Server stopped error: ${err.message}`);
 
-          return reject();
+          return reject(err);
         }
         logger.info('HTTP Server stopped');
 
